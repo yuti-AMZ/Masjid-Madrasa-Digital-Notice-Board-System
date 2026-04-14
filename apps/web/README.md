@@ -1,70 +1,86 @@
-# Getting Started with Create React App
+# Masjid/Madrasa Digital Notice Board (Web)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the **user-facing** web UI for announcements, Quran/Kitāb programs, and Hijri-based reminders for **Nejashi Mesjid Koye Feche (Addis Ababa, Ethiopia)**.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Announcements**
+  - **List**: filter by category + search
+  - **Detail page**: richer layout + program/event information
+- **Madrasa (Quran & Kitāb program)**
+  - **Kitāb tracks**: selectable list with a per‑Kitāb detail page
+  - **Register Now**: opens a registration form (stored locally)
+- **Hijri calendar + reminders**
+  - Hijri month grid (Umm al‑Qura) with marked:
+    - **Ayyām al‑Bīḍ** (13/14/15) + fasting reminder
+    - **Day of Arafah** (Dhul Hijjah 9)
+    - **Eid** (Eid al‑Fitr / Eid al‑Adha)
+  - “Upcoming reminder” banner appears on the announcements page
+  - Calendar is a separate page: `/calendar`
+- **Language toggle**
+  - Global **EN / AR** switch in sidebar
+  - Persists in localStorage and sets page direction (LTR/RTL)
+- **Add to Calendar**
+  - Downloads an `.ics` file for non‑madrasa announcements
 
-### `npm start`
+## Tech stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **React** + **Create React App**
+- **react-router-dom** for routing
+- Styling via **design tokens** in `src/App.css` (light/dark via `prefers-color-scheme`)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Routes
 
-### `npm test`
+- **`/`**: Announcements list
+- **`/announcement/:announcementId`**: Announcement detail
+- **`/announcement/:announcementId/kitaab/:kitabIndex`**: Kitāb detail
+- **`/announcement/:announcementId/register`**: Quran registration form
+- **`/calendar`**: Hijri calendar + reminders
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Key modules / where to edit
 
-### `npm run build`
+- **Announcements data**: `src/data/announcementsData.js`
+- **Hijri calendar logic**: `src/data/hijriCalendar.js`
+  - Uses `Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura', ...)`
+  - Reminder rules:
+    - Ayyām al‑Bīḍ: day 13/14/15 (every Hijri month)
+    - Arafah: Dhul Hijjah (month 12) day 9
+    - Eid al‑Fitr: Shawwal (month 10) day 1
+    - Eid al‑Adha: Dhul Hijjah (month 12) day 10
+- **Calendar UI**: `src/components/CalendarBento.js`
+- **Registration form**: `src/pages/QuranRegistrationForm.js`
+- **Language/i18n**:
+  - Strings: `src/i18n/strings.js`
+  - Provider + persistence: `src/i18n/I18nProvider.js`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## localStorage keys
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Language**: `nejashi_lang` (`en` | `ar`)
+- **Saved khutbah reminders**: `nejashi_reminders`
+- **Quran registrations**: `nejashi_quran_registrations`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Design system (tokens)
 
-### `npm run eject`
+Defined in `src/App.css`:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **Primary Action**: `#14C38E`
+- **Alert/Accent**: `#FFD700`
+- **Light theme**: `#F8F9FA` background, `#FFFFFF` surface, `#1A1A1A` text
+- **Dark theme**: `#111D18` background, `#1A2821` surface, `#FFFFFF` text
+- **Radius**: 16px cards, 12px buttons
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Running locally
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+From `Masjid-Madrasa-Digital-Notice-Board-System/apps/web`:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+npm install
+npm start
+```
 
-## Learn More
+Open `http://localhost:3000`.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Notes / limitations (current)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- There is **no backend** yet. Registrations and reminders are stored in **localStorage**.
+- Calendar reminders are **rule-based** (Hijri rules above). If you need organization-specific dates or content, add a backend/admin UI later.

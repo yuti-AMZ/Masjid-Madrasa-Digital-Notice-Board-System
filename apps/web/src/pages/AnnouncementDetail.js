@@ -1,293 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
-
-const announcements = {
-  'special-eid-al-fitr': {
-    id: 'special-eid-al-fitr',
-    title: 'Special Eid Al-Fitr Prayer 1445H',
-    category: 'Event',
-    type: 'eid',
-    hero: 'https://sheikhdrsultan.ae/Portal/Content/Generated/Thumbnails/4df5a3f5_3201x2581wTransparent.jpg', 
-    description: 'Join us for the most joyous occasion of the year! Noor Masjid invites all community members, families, and friends to the Eid Al-Fitr congregational prayer and our annual community festival.',
-    details: 'The program includes the Takbeerat, the Eid Prayer, and a Khutbah. Following the formal service, we will have breakfast refreshments, activities for children, and a community bazaar in the parking lot area.',
-    features: [
-      { label: 'Main Hall & Courtyard', description: 'Extra space arranged for families' },
-      { label: 'Zakat Al-Fitr', description: 'Pay before prayer starts ($15/person)' }
-    ],
-    schedule: [
-      { label: 'Takbeerat', time: '7:00 AM' },
-      { label: 'Eid Prayer', time: '7:30 AM' },
-      { label: 'Eid Khutbah', time: '7:50 AM' },
-      { label: 'Breakfast', time: '8:30 AM' }
-    ],
-    location: '123 Islamic Center Dr, Chicago, IL 60601',
-    otherUpdates: [
-      { title: 'Ramadan Food Drive Success', info: '2 days ago' },
-      { title: 'New Quran Classes for Kids', info: '5 days ago' }
-    ]
-  },
-  'winter-quran-registration': {
-    id: 'winter-quran-registration',
-    title: 'Quran and Kitab Intensive Registration',
-    category: 'Madrasa',
-    type: 'madrasa',
-    hero: 'https://images.unsplash.com/photo-1623314556929-69d34cb19010?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8a2l0YWIlMjBhcmFifGVufDB8fDB8fHww',
-    description: 'Najashi Masjid in Koye Feche, Addis Ababa is opening winter Quran enrollment for youth. Select from multiple kitaab tracks, each with a dedicated instructor, timeline, and assessment plan.',
-    details: 'This winter program is held at Najashi Masjid and focuses on Quran memorization, Tajweed, and Islamic studies. Classes run Monday through Thursday from 4:00 PM to 6:00 PM. Students will receive all materials and can join the structured kitāb-based tracks.',
-    features: [
-      { label: 'Age Groups', description: 'no restricted age' },
-      { label: 'Transportation', description: 'Pickup from participating schools' },
-      { label: 'Materials', description: 'All books and supplies included' },
-      { label: 'Multiple Kitaab Tracks', description: 'Select from eight distinct study paths' }
-    ],
-    kitaabs: [
-      {
-        name: 'Surah Al-Baqarah (Chapters 1-10)',
-        author: 'Imam Al-Qurtubi',
-        teacher: 'Ustadh Omar',
-        classTime: 'Monday & Wednesday 4:00 PM - 6:00 PM',
-        currentPage: 'Page 18',
-        yearWritten: '8th century CE',
-        image: 'https://quranlearningusa.com/blog/wp-content/uploads/2024/12/147603740-102499925-1566817755.webp',
-        description: 'Comprehensive study of the first 10 chapters of Surah Al-Baqarah, focusing on legal rulings, stories of prophets, and practical applications.',
-        startDate: 'December 2, 2024',
-        endDate: 'January 15, 2025',
-        tests: 'Weekly memorization tests, monthly comprehension exams',
-        assignments: 'Daily homework, weekly Tafseer summaries',
-        relatedWorks: ['Tafseer al-Qurtubi: Selected Lessons', 'Fiqh from Surah Al-Baqarah']
-      },
-      {
-        name: 'Tajweed Rules - Part 1',
-        author: 'Sheikh Muhammad Saad Al-Din',
-        teacher: 'Ustadh Abdullah',
-        classTime: 'Tuesday & Thursday 4:00 PM - 6:00 PM',
-        currentPage: 'Lesson 5',
-        yearWritten: '2022',
-        image: 'https://fastercapital.com/images/company/sharing/tajweed.jpg',
-        description: 'Fundamental rules of Quran recitation including proper pronunciation, elongation, and articulation points.',
-        startDate: 'December 2, 2024',
-        endDate: 'February 28, 2025',
-        tests: 'Monthly recitation assessments',
-        assignments: 'Daily practice recordings, weekly rule applications',
-        relatedWorks: ['Tajweed Rules - Part 2', 'Advanced Quran Recitation']
-      },
-      {
-        name: 'Islamic Studies - Prophets Stories',
-        author: 'Shaykh Abdullah Al-Jibrin',
-        teacher: 'Sheikh Ahmed',
-        classTime: 'Monday & Wednesday 4:15 PM - 5:45 PM',
-        currentPage: 'Chapter 3',
-        yearWritten: '2020',
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKyrTqVQu6T-6tttGvvrx1Ouqgf3dV562PXw&s',
-        description: 'Stories of major prophets from Adam to Muhammad (PBUH), their struggles and lessons for modern Muslims.',
-        startDate: 'December 9, 2024',
-        endDate: 'March 15, 2025',
-        tests: 'Bi-weekly quizzes on prophet stories',
-        assignments: 'Weekly reflection journals, group presentations',
-        relatedWorks: ['Lessons from the Prophets', 'Prophetic Character Study']
-      },
-      {
-        name: 'Arabic Grammar Basics',
-        author: 'Ustadh Nouman Ali Khan',
-        teacher: 'Ustadh Hassan',
-        classTime: 'Friday 4:00 PM - 6:00 PM',
-        currentPage: 'Noun & Verb Patterns',
-        yearWritten: '2019',
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjRHPvMIe_l_C5hBf611kFoQ4rymcjZqE07A&s',
-        description: 'Essential Arabic grammar rules needed for understanding Quran and Hadith, including I\'rab and Sarf.',
-        startDate: 'January 6, 2025',
-        endDate: 'March 30, 2025',
-        tests: 'Weekly grammar exercises, final comprehensive exam',
-        assignments: 'Daily grammar drills, sentence construction practice',
-        relatedWorks: ['Arabic Grammar for Students', 'Quranic Syntax Simplified']
-      },
-      {
-        name: 'Surah Yusuf Memorization',
-        author: 'Ustadh Anas Al-Din',
-        teacher: 'Ustadh Omar',
-        classTime: 'Tuesday & Thursday 4:15 PM - 5:45 PM',
-        currentPage: 'Verse 50',
-        yearWritten: '2021',
-        image: 'https://img.freepik.com/premium-vector/surah-yusuf-quran-calligraphy-surah-holy-quran-surat-yusuf-islamic-vector_724044-48.jpg',
-        description: 'Focused memorization of Surah Yusuf with meaning and tajweed emphasis.',
-        startDate: 'December 16, 2024',
-        endDate: 'February 10, 2025',
-        tests: 'Memorization recitation checkups every two weeks',
-        assignments: 'Daily memorization goals and partner review sessions',
-        relatedWorks: ['Tafsir Surah Yusuf', 'Stories of the Prophets']
-      },
-      {
-        name: 'Hadith Studies - Riyadh As-Salihin',
-        author: 'Imam Nawawi',
-        teacher: 'Sheikh Ahmed',
-        classTime: 'Saturday 11:00 AM - 1:00 PM',
-        currentPage: 'Book 4',
-        yearWritten: '1994',
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQl5WEh6WvsRu0gLkstRShaII2UEBLTbRKSpQ&s',
-        description: 'Selected hadiths covering good character, worship, and community conduct.',
-        startDate: 'January 2, 2025',
-        endDate: 'March 20, 2025',
-        tests: 'Weekly hadith understanding quizzes',
-        assignments: 'Hadith explanation notes and student presentations',
-        relatedWorks: ['Hadith of the Prophet', 'Character Building in Islam']
-      },
-      {
-        name: 'Fiqh Basics for Youth',
-        author: 'Sheikh Salih Al-Fawzan',
-        teacher: 'Ustadh Abdullah',
-        classTime: 'Wednesday 4:00 PM - 6:00 PM',
-        currentPage: 'Prayer & Purity',
-        yearWritten: '2023',
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8Z0Osq928SLEaP52NXvg4-khwE_mjyimCWw&s',
-        description: 'Introductory fiqh concepts that support correct Quranic practice and daily worship.',
-        startDate: 'January 13, 2025',
-        endDate: 'April 5, 2025',
-        tests: 'Monthly fiqh assessments',
-        assignments: 'Case studies and practical application exercises',
-        relatedWorks: ['Youth Fiqh Essentials', 'Islamic Rulings for Daily Life']
-      },
-    ],
-    instructors: [
-      { name: 'Ustadh Omar', subject: 'Quran Memorization' },
-      { name: 'Ustadh Abdullah', subject: 'Tajweed' },
-      { name: 'Sheikh Ahmed', subject: 'Islamic Studies' }
-    ],
-    location: 'Najashi Masjid, Koye Feche, Addis Ababa, Ethiopia',
-    otherUpdates: [
-      { title: 'Summer Camp Registration Open', info: '3 days ago' },
-      { title: 'New Arabic Classes', info: '1 week ago' }
-    ]
-  },
-  'food-drive': {
-    id: 'food-drive',
-    category: 'Events',
-    type: 'event',
-    hero: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa5xbkV-IPgMXkuCAAHLNliMr4JSd4XYCLXw&s',
-    description: 'Help us distribute food parcels to local families in need this Sunday morning. Volunteers needed for sorting and delivery.',
-    details: 'We need volunteers to help sort donations, pack food parcels, and deliver to families. All volunteers will receive breakfast and lunch. Gloves and masks will be provided. We also provide Iftar meals during Ramadan.',
-    features: [
-      { label: 'Volunteer Roles', description: 'Sorting, packing, and delivery' },
-      { label: 'Meals Provided', description: 'Breakfast and lunch for volunteers, Iftar program available' },
-      { label: 'Safety Measures', description: 'Gloves and masks provided' },
-      { label: 'Community Impact', description: 'Help feed 200+ families monthly' }
-    ],
-    programs: [
-      { name: 'Daily Lunch Program', description: 'Hot meals served Monday-Friday for those in need', time: '12:00 PM - 2:00 PM' },
-      { name: 'Ramadan Iftar Distribution', description: 'Iftar meals for 150 families during Ramadan', time: 'Sunset daily' },
-      { name: 'Weekly Food Parcels', description: 'Non-perishable food packages for families', time: 'Every Sunday' },
-      { name: 'Emergency Food Bank', description: '24/7 access for urgent needs', time: 'Available anytime' }
-    ],
-    volunteerNeeds: [
-      'Food sorting and packaging volunteers',
-      'Delivery drivers (must have valid license)',
-      'Kitchen helpers for meal preparation',
-      'Administrative support for tracking donations',
-      'Social media coordinators to spread awareness'
-    ],
-    schedule: [
-      { label: 'Setup & Sorting', time: '8:00 AM' },
-      { label: 'Packing Parcels', time: '9:00 AM' },
-      { label: 'Delivery Teams', time: '10:00 AM' },
-      { label: 'Cleanup', time: '2:00 PM' }
-    ],
-    location: 'Noor Masjid Community Hall, 123 Islamic Center Dr, Chicago, IL 60601',
-    otherUpdates: [
-      { title: 'Zakat Collection Update', info: '1 day ago' },
-      { title: 'Winter Clothing Drive', info: '4 days ago' }
-    ]
-  },
-  'facility-upgrade': {
-    id: 'facility-upgrade',
-    category: 'General',
-    type: 'general',
-    hero: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=80',
-    description: 'The new wudu area construction is nearly complete. We appreciate your patience during these improvements to our Masjid.',
-    details: 'The new wudu facilities include 12 individual stations, modern fixtures, and improved accessibility. The project is expected to be completed by next week.',
-    features: [
-      { label: '12 Individual Stations', description: 'Private wudu areas for comfort' },
-      { label: 'Modern Fixtures', description: 'Energy-efficient and water-saving' },
-      { label: 'Accessibility', description: 'Wheelchair accessible design' }
-    ],
-    facilityIssues: [
-      {
-        facility: 'Main Prayer Hall Air Conditioning',
-        status: 'Out of Service',
-        issue: 'Unit needs replacement after 15 years',
-        cost: '$12,000',
-        estimatedCompletion: 'December 15, 2024'
-      },
-      {
-        facility: 'Women\'s Wudu Area',
-        status: 'Limited Capacity',
-        issue: 'Only 3 working stations out of 8',
-        cost: '$8,500',
-        estimatedCompletion: 'January 30, 2025'
-      },
-      {
-        facility: 'Parking Lot Lighting',
-        status: 'Partially Working',
-        issue: 'Half of lights need replacement',
-        cost: '$4,200',
-        estimatedCompletion: 'December 20, 2024'
-      },
-      {
-        facility: 'Sound System',
-        status: 'Needs Upgrade',
-        issue: 'Outdated equipment causing feedback',
-        cost: '$6,800',
-        estimatedCompletion: 'February 15, 2025'
-      }
-    ],
-    location: 'Noor Masjid Main Building, 123 Islamic Center Dr, Chicago, IL 60601',
-    otherUpdates: [
-      { title: 'Prayer Hall Renovation', info: '2 weeks ago' },
-      { label: 'Parking Lot Expansion', info: '3 weeks ago' }
-    ]
-  },
-  'upcoming-khutbah': {
-    id: 'upcoming-khutbah',
-    category: 'Friday',
-    type: 'khutbah',
-    hero: 'https://open-images.acast.com/shows/64c531806624ec0011ae53f0/1699125015368-e9907e55d1eafe175418806313ac1361.jpeg?height=750',
-    description: 'We are pleased to announce our guest speakers for the month of November. View the full list and topics online.',
-    details: 'This month features inspiring Khutbahs from renowned scholars. Topics include community building, family values, and contemporary Islamic issues.',
-    speakers: [
-      {
-        name: 'Sheikh Ahmed Al-Rashid',
-        topic: 'The Importance of Community Bonds in Islam',
-        date: 'Nov 3',
-        details: 'This Khutbah explores the concept of brotherhood in Islam (Al-Ukhuwwah Al-Islamiyyah) and how Muslims are commanded to support one another. The Sheikh will discuss Quranic verses and Hadiths that emphasize community solidarity, mutual help, and the prohibition of division among believers. This topic is crucial in today\'s world where social media often divides rather than unites communities.'
-      },
-      {
-        name: 'Ustadh Omar Al-Sayed',
-        topic: 'Youth and Faith: Navigating Modern Challenges',
-        date: 'Nov 10',
-        details: 'Focusing on the younger generation, this Khutbah addresses the unique challenges Muslim youth face in maintaining their faith amidst peer pressure, social media influences, and cultural conflicts. The speaker will draw from the examples of the Prophet\'s companions who were young and how they preserved their Islamic identity. This topic is essential as it provides guidance for parents and youth alike in strengthening faith in contemporary society.'
-      },
-      {
-        name: 'Sheikh Muhammad Al-Zahra',
-        topic: 'The Blessings of Regular Prayer',
-        date: 'Nov 17',
-        details: 'This Khutbah delves into the spiritual and worldly benefits of establishing regular prayer (Salah). The Sheikh will explain how prayer serves as a direct connection with Allah, provides discipline, prevents immorality, and brings peace to the heart. Drawing from scientific studies and Islamic teachings, he\'ll demonstrate why maintaining prayer is fundamental to a Muslim\'s success in both worlds.'
-      },
-      {
-        name: 'Imam Hassan Al-Qurashi',
-        topic: 'Patience and Gratitude in Times of Trial',
-        date: 'Nov 24',
-        details: 'In this Khutbah, the Imam will discuss the Islamic concepts of Sabr (patience) and Shukr (gratitude) as essential qualities for Muslims. He\'ll explain how trials and tribulations are tests from Allah, and how maintaining patience and expressing gratitude transforms difficulties into opportunities for spiritual growth. This topic is particularly relevant given current global challenges and personal hardships many face.'
-      }
-    ],
-    location: 'Nejashi Mesjid, Koye Feche, Addis Ababa, Ethiopia ',
-    otherUpdates: [
-      { title: 'New Khutbah Series Announced', info: '1 week ago' },
-      { title: 'Online Khutbah Archive', info: '2 weeks ago' }
-    ]
-  }
-};
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { announcementsById } from '../data/announcementsData';
+import { downloadICS } from '../utils/ics';
+ 
 
 function AnnouncementDetail() {
   const { announcementId } = useParams();
-  const announcement = announcements[announcementId] || announcements['special-eid-al-fitr'];
+  const navigate = useNavigate();
+  const announcement = announcementsById[announcementId] || announcementsById['special-eid-al-fitr'];
   const [selectedKitabIndex, setSelectedKitabIndex] = useState(0);
 
   useEffect(() => {
@@ -295,6 +15,38 @@ function AnnouncementDetail() {
   }, [announcementId]);
 
   const selectedKitab = announcement.kitaabs?.[selectedKitabIndex] || null;
+
+  const handlePrimaryAction = () => {
+    if (announcement.type === 'madrasa') {
+      navigate(`/announcement/${announcement.id}/register`);
+      return;
+    }
+
+    if (announcement.type === 'khutbah') {
+      // Save a simple reminder to localStorage for visibility in calendar page.
+      const key = 'nejashi_reminders';
+      const current = JSON.parse(localStorage.getItem(key) || '[]');
+      const next = [{ id: `${announcement.id}-${Date.now()}`, announcementId: announcement.id, title: announcement.title, createdAt: new Date().toISOString() }, ...current].slice(0, 20);
+      localStorage.setItem(key, JSON.stringify(next));
+      alert('تم حفظ التذكير. يمكنك رؤيته في صفحة التقويم.');
+      return;
+    }
+
+    // Add to calendar (ICS download). Uses "now + 1 hour" as a safe default unless schedule exists.
+    const start = new Date();
+    start.setHours(start.getHours() + 1, 0, 0, 0);
+    const end = new Date(start);
+    end.setHours(end.getHours() + 1);
+
+    downloadICS({
+      title: announcement.title,
+      description: announcement.description,
+      location: announcement.location,
+      start,
+      end,
+      filename: `${announcement.id}.ics`,
+    });
+  };
 
   const renderSidebarContent = () => {
     switch (announcement.type) {
@@ -396,7 +148,7 @@ function AnnouncementDetail() {
   };
 
   return (
-    <div style={{ width: '100%', maxWidth: '1180px', margin: '0 auto', color: '#0F172A' }}>
+    <div style={{ width: '100%', maxWidth: '1180px', margin: '0 auto', color: 'var(--color-text)' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '18px', marginBottom: '30px' }}>
         <div>
           <p style={{ margin: 0, color: '#FB923C', fontSize: '13px', fontWeight: 700, letterSpacing: '1px' }}>Announcements</p>
@@ -416,36 +168,57 @@ function AnnouncementDetail() {
         </Link>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1.75fr 1fr', gap: '28px', marginBottom: '32px' }}>
-        <div style={{ borderRadius: '28px', overflow: 'hidden', backgroundColor: '#fff', boxShadow: '0 18px 45px rgba(15, 23, 42, 0.08)' }}>
+      <div className="bentoGrid" style={{ marginBottom: '32px' }}>
+        <div className="bentoSpan2">
+        <div style={{ borderRadius: '16px', overflow: 'hidden', backgroundColor: 'var(--color-surface)', boxShadow: 'var(--shadow-soft)', border: '1px solid var(--color-border)' }}>
           <div style={{ position: 'relative', width: '100%', height: '420px', overflow: 'hidden' }}>
             <img src={announcement.hero} alt={announcement.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            <span style={{ position: 'absolute', top: '24px', left: '24px', backgroundColor: 'rgba(255, 125, 51, 0.95)', color: '#fff', padding: '10px 16px', borderRadius: '999px', fontSize: '12px', fontWeight: 700, letterSpacing: '0.4px' }}>
+            <span style={{ position: 'absolute', top: '24px', left: '24px', backgroundColor: 'rgba(20, 195, 142, 0.95)', color: '#fff', padding: '10px 16px', borderRadius: '999px', fontSize: '12px', fontWeight: 700, letterSpacing: '0.4px' }}>
               {announcement.category}
             </span>
           </div>
           <div style={{ padding: '32px 34px' }}>
+            {announcement.type === 'eid' && announcement.eidInfo && (
+              <div style={{ marginBottom: '22px', borderRadius: '22px', padding: '18px', background: 'linear-gradient(90deg, rgba(255,125,51,0.14) 0%, rgba(16,185,129,0.12) 100%)', border: '1px solid rgba(255, 125, 51, 0.25)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '14px', flexWrap: 'wrap' }}>
+                  <div>
+                    <p style={{ margin: 0, color: '#0F172A', fontWeight: 900, fontSize: '16px' }}>{announcement.eidInfo.greeting}</p>
+                    <p style={{ margin: '6px 0 0', color: '#475569', lineHeight: 1.7, fontSize: '14px' }}>
+                      Students and families: please arrive early and follow the organizers for meeting points and prayer arrangement.
+                    </p>
+                  </div>
+                  <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                    <span style={{ backgroundColor: 'rgba(255,255,255,0.85)', border: '1px solid rgba(148,163,184,0.45)', color: '#0F172A', borderRadius: '999px', padding: '8px 12px', fontSize: '12px', fontWeight: 900 }}>
+                      Meet: {announcement.eidInfo.meetWhen}
+                    </span>
+                    <span style={{ backgroundColor: 'rgba(255,255,255,0.85)', border: '1px solid rgba(148,163,184,0.45)', color: '#0F172A', borderRadius: '999px', padding: '8px 12px', fontSize: '12px', fontWeight: 900 }}>
+                      Salah: {announcement.eidInfo.salahStarts}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '20px' }}>
-              <button style={{ backgroundColor: '#FF7D33', border: 'none', borderRadius: '14px', color: '#fff', padding: '12px 20px', fontWeight: 700, cursor: 'pointer' }}
-                onClick={() => {
-                  if (announcement.type === 'madrasa') {
-                    alert('Registration form will open. Contact: admin@noormasjid.org or call (555) 123-4567');
-                  } else if (announcement.type === 'khutbah') {
-                    alert('Reminder set! You will be notified before the Khutbah.');
-                  } else if (announcement.type === 'event') {
-                    alert('Thank you for your interest! Please contact the events coordinator at events@noormasjid.org');
-                  } else {
-                    alert('Calendar event added to your device.');
-                  }
-                }}
-              >
-                {announcement.type === 'khutbah' ? 'Set Reminder' :
-                 announcement.type === 'madrasa' ? 'Register Now' :
-                 announcement.type === 'event' ? 'Sign Up to Volunteer' :
-                 announcement.type === 'general' ? 'View Progress' :
-                 'Add to Calendar'}
-              </button>
-              <button style={{ backgroundColor: '#F1F5F9', border: 'none', borderRadius: '14px', color: '#334155', padding: '12px 20px', fontWeight: 700, cursor: 'pointer' }}>
+              {announcement.type === 'madrasa' ? (
+                <button
+                  style={{ backgroundColor: 'var(--color-primary)', border: 'none', borderRadius: '12px', color: '#fff', padding: '12px 20px', fontWeight: 700, cursor: 'pointer' }}
+                  onClick={() => window.location.assign(`/announcement/${announcement.id}/register`)}
+                >
+                  Register Now
+                </button>
+              ) : (
+                <button
+                  style={{ backgroundColor: 'var(--color-primary)', border: 'none', borderRadius: '12px', color: '#fff', padding: '12px 20px', fontWeight: 700, cursor: 'pointer' }}
+                  onClick={handlePrimaryAction}
+                >
+                  {announcement.type === 'khutbah' ? 'Set Reminder' :
+                   announcement.type === 'event' ? 'Sign Up to Volunteer' :
+                   announcement.type === 'general' ? 'View Progress' :
+                   'Add to Calendar'}
+                </button>
+              )}
+              <button style={{ backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: '12px', color: 'var(--color-text)', padding: '12px 20px', fontWeight: 700, cursor: 'pointer' }}>
                 Share
               </button>
             </div>
@@ -478,7 +251,7 @@ function AnnouncementDetail() {
             )}
             {announcement.type === 'madrasa' && selectedKitab && (
               <div style={{ marginBottom: '28px' }}>
-                <h2 style={{ margin: '0 0 20px', fontSize: '24px', color: '#0F172A' }}>Winter Kitāb Tracks</h2>
+                <h2 style={{ margin: '0 0 20px', fontSize: '24px', color: '#0F172A' }}>Kitāb Tracks</h2>
                 <p style={{ margin: '0 0 24px', color: '#64748B', lineHeight: 1.8 }}>
                   Select a track below to view full details for each specific kitab, including the teacher, timeline, written author, and assessment plan.
                 </p>
@@ -494,12 +267,12 @@ function AnnouncementDetail() {
                           gap: '16px',
                           alignItems: 'center',
                           textAlign: 'left',
-                          border: selectedKitabIndex === index ? '2px solid #3B82F6' : '1px solid #E2E8F0',
+                          border: selectedKitabIndex === index ? '2px solid var(--color-primary)' : '1px solid var(--color-border)',
                           borderRadius: '22px',
-                          backgroundColor: selectedKitabIndex === index ? '#EFF6FF' : '#fff',
+                          backgroundColor: selectedKitabIndex === index ? 'rgba(20, 195, 142, 0.10)' : 'var(--color-surface)',
                           padding: '18px',
                           cursor: 'pointer',
-                          boxShadow: selectedKitabIndex === index ? '0 18px 35px rgba(59, 130, 246, 0.14)' : '0 12px 30px rgba(15, 23, 42, 0.06)'
+                          boxShadow: selectedKitabIndex === index ? '0 18px 35px rgba(20, 195, 142, 0.14)' : '0 12px 30px rgba(15, 23, 42, 0.06)'
                         }}
                       >
                         <div style={{ width: '120px', height: '120px', borderRadius: '18px', overflow: 'hidden' }}>
@@ -523,6 +296,21 @@ function AnnouncementDetail() {
                       <p style={{ margin: 0, color: '#64748B', fontSize: '13px' }}>Selected Kitāb</p>
                       <h3 style={{ margin: '10px 0 6px', fontSize: '24px', color: '#0F172A' }}>{selectedKitab.name}</h3>
                       <p style={{ margin: 0, color: '#475569', lineHeight: 1.8 }}>{selectedKitab.description}</p>
+                    </div>
+
+                    <div style={{ marginTop: '18px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                      <button
+                        onClick={() => navigate(`/announcement/${announcement.id}/kitaab/${selectedKitabIndex}`)}
+                        style={{ border: 'none', backgroundColor: 'var(--color-primary)', color: '#fff', borderRadius: '12px', padding: '12px 18px', cursor: 'pointer', fontWeight: 800 }}
+                      >
+                        Open this Kitāb page →
+                      </button>
+                      <button
+                        onClick={() => navigator.clipboard?.writeText?.(selectedKitab.name)}
+                        style={{ border: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface)', color: 'var(--color-text)', borderRadius: '12px', padding: '12px 18px', cursor: 'pointer', fontWeight: 800 }}
+                      >
+                        Copy Kitāb name
+                      </button>
                     </div>
 
                     <div style={{ marginTop: '24px', display: 'grid', gap: '16px' }}>
@@ -559,22 +347,39 @@ function AnnouncementDetail() {
                 </div>
               </div>
             )}
+            {announcement.type === 'eid' && announcement.eidInfo && (
+              <div style={{ marginTop: '24px', display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '18px' }}>
+                {[
+                  { label: 'Meeting', value: `${announcement.eidInfo.meetWho} — ${announcement.eidInfo.meetWhen}` },
+                  { label: 'Meeting point', value: announcement.eidInfo.meetWhere },
+                  { label: 'Salah starts', value: announcement.eidInfo.salahStarts },
+                  { label: 'Eid prayer location', value: announcement.eidInfo.prayerWhere },
+                ].map((item) => (
+                  <div key={item.label} style={{ backgroundColor: '#F8FAFC', borderRadius: '20px', padding: '22px', border: '1px solid #E2E8F0' }}>
+                    <p style={{ margin: 0, color: '#64748B', fontSize: '12px', fontWeight: 900, letterSpacing: '0.6px', textTransform: 'uppercase' }}>{item.label}</p>
+                    <p style={{ margin: '10px 0 0', color: '#0F172A', fontWeight: 900, lineHeight: 1.6 }}>{item.value}</p>
+                  </div>
+                ))}
+              </div>
+            )}
             <p style={{ margin: 0, color: '#475569', lineHeight: 1.8 }}>
               {announcement.details}
             </p>
           </div>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
           {renderSidebarContent()}
 
-          <div style={{ borderRadius: '24px', padding: '26px', backgroundColor: '#fff', boxShadow: '0 18px 45px rgba(15, 23, 42, 0.06)' }}>
+          <div style={{ borderRadius: '16px', padding: '26px', backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border)', boxShadow: 'var(--shadow-soft)' }}>
             <h3 style={{ margin: 0, fontSize: '18px', color: '#0F172A' }}>Location</h3>
             <div style={{ marginTop: '18px', height: '200px', borderRadius: '20px', overflow: 'hidden', backgroundColor: '#E2E8F0', backgroundImage: 'url(https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=900&q=80)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
             <p style={{ margin: '18px 0 0', color: '#475569', lineHeight: 1.7 }}>{announcement.location}</p>
           </div>
 
-          <div style={{ borderRadius: '24px', padding: '26px', backgroundColor: '#fff', boxShadow: '0 18px 45px rgba(15, 23, 42, 0.06)' }}>
+          <div style={{ borderRadius: '16px', padding: '26px', backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border)', boxShadow: 'var(--shadow-soft)' }}>
             <h3 style={{ margin: 0, fontSize: '18px', color: '#0F172A' }}>Other Updates</h3>
             <div style={{ marginTop: '20px', display: 'grid', gap: '14px' }}>
               {announcement.otherUpdates.map((update) => (

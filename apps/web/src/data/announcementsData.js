@@ -1,0 +1,346 @@
+export const announcementsById = {
+  'special-eid-al-fitr': {
+    id: 'special-eid-al-fitr',
+    title: 'Special Eid Prayer',
+    category: 'Event',
+    type: 'eid',
+    hero: 'https://sheikhdrsultan.ae/Portal/Content/Generated/Thumbnails/4df5a3f5_3201x2581wTransparent.jpg',
+    description:
+      'Join us for the most joyous occasion of the year! Nejashi Mesjid Koye Feche invites all community members, families, and friends to the Eid Al-Fitr congregational prayer and our annual community festival.',
+    details:
+      'The program includes the Takbeerat, the Eid Prayer, and a Khutbah. Following the formal service, we will have breakfast refreshments, activities for children, and a community bazaar in the parking lot area.',
+    eidInfo: {
+      greeting: 'Eid Mubarak!',
+      meetWho: 'All students',
+      meetWhere: 'Main gate (front entrance) of Nejashi Mesjid Koye Feche',
+      meetWhen: '6:30 AM',
+      salahStarts: '7:30 AM',
+      prayerWhere: 'Main prayer hall and courtyard (overflow area)',
+    },
+    features: [
+      { label: 'Main Hall & Courtyard', description: 'Extra space arranged for families' },
+      { label: 'Zakat Al-Fitr', description: 'Pay before prayer starts ($15/person)' },
+    ],
+    schedule: [
+      { label: 'Takbeerat', time: '7:00 AM' },
+      { label: 'Eid Prayer (Salah)', time: '7:30 AM' },
+      { label: 'Eid Khutbah', time: '7:50 AM' },
+      { label: 'Breakfast', time: '8:30 AM' },
+    ],
+    location: 'Nejashi Mesjid Koye Feche, Addis Ababa, Ethiopia',
+    otherUpdates: [
+      { title: 'Ramadan Food Drive Success', info: '2 days ago' },
+      { title: 'New Quran Classes for Kids', info: '5 days ago' },
+    ],
+  },
+  'winter-quran-registration': {
+    id: 'winter-quran-registration',
+    title: 'Quran and Kitab Intensive Registration',
+    category: 'Madrasa',
+    type: 'madrasa',
+    hero:
+      'https://images.unsplash.com/photo-1623314556929-69d34cb19010?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8a2l0YWIlMjBhcmFifGVufDB8fDB8fHww',
+    description:
+      'Nejashi Mesjid Koye Feche, Addis Ababa is opening winter Quran enrollment for youth. Select from multiple kitaab tracks, each with a dedicated instructor, timeline, and assessment plan.',
+    details:
+      'This winter program is held at Nejashi Mesjid Koye Feche and focuses on Quran memorization, Tajweed, and Islamic studies. Classes run Monday through Thursday from 4:00 PM to 6:00 PM. Students will receive all materials and can join the structured kitāb-based tracks.',
+    features: [
+      { label: 'Age Groups', description: 'no restricted age' },
+      { label: 'Transportation', description: 'Pickup from participating schools' },
+      { label: 'Materials', description: 'All books and supplies included' },
+      { label: 'Multiple Kitaab Tracks', description: 'Select from eight distinct study paths' },
+    ],
+    kitaabs: [
+      {
+        name: 'Surah Al-Baqarah (Chapters 1-10)',
+        author: 'Imam Al-Qurtubi',
+        teacher: 'Ustadh Omar',
+        classTime: 'Monday & Wednesday 4:00 PM - 6:00 PM',
+        currentPage: 'Page 18',
+        yearWritten: '8th century CE',
+        image: 'https://quranlearningusa.com/blog/wp-content/uploads/2024/12/147603740-102499925-1566817755.webp',
+        description:
+          'Comprehensive study of the first 10 chapters of Surah Al-Baqarah, focusing on legal rulings, stories of prophets, and practical applications.',
+        startDate: 'December 2, 2024',
+        endDate: 'January 15, 2025',
+        tests: 'Weekly memorization tests, monthly comprehension exams',
+        assignments: 'Daily homework, weekly Tafseer summaries',
+        relatedWorks: ['Tafseer al-Qurtubi: Selected Lessons', 'Fiqh from Surah Al-Baqarah'],
+      },
+      {
+        name: 'Tajweed Rules - Part 1',
+        author: 'Sheikh Muhammad Saad Al-Din',
+        teacher: 'Ustadh Abdullah',
+        classTime: 'Tuesday & Thursday 4:00 PM - 6:00 PM',
+        currentPage: 'Lesson 5',
+        yearWritten: '2022',
+        image: 'https://fastercapital.com/images/company/sharing/tajweed.jpg',
+        description:
+          'Fundamental rules of Quran recitation including proper pronunciation, elongation, and articulation points.',
+        startDate: 'December 2, 2024',
+        endDate: 'February 28, 2025',
+        tests: 'Monthly recitation assessments',
+        assignments: 'Daily practice recordings, weekly rule applications',
+        relatedWorks: ['Tajweed Rules - Part 2', 'Advanced Quran Recitation'],
+      },
+      {
+        name: 'Islamic Studies - Prophets Stories',
+        author: 'Shaykh Abdullah Al-Jibrin',
+        teacher: 'Sheikh Ahmed',
+        classTime: 'Monday & Wednesday 4:15 PM - 5:45 PM',
+        currentPage: 'Chapter 3',
+        yearWritten: '2020',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKyrTqVQu6T-6tttGvvrx1Ouqgf3dV562PXw&s',
+        description:
+          'Stories of major prophets from Adam to Muhammad (PBUH), their struggles and lessons for modern Muslims.',
+        startDate: 'December 9, 2024',
+        endDate: 'March 15, 2025',
+        tests: 'Bi-weekly quizzes on prophet stories',
+        assignments: 'Weekly reflection journals, group presentations',
+        relatedWorks: ['Lessons from the Prophets', 'Prophetic Character Study'],
+      },
+      {
+        name: 'Arabic Grammar Basics',
+        author: 'Ustadh Nouman Ali Khan',
+        teacher: 'Ustadh Hassan',
+        classTime: 'Friday 4:00 PM - 6:00 PM',
+        currentPage: 'Noun & Verb Patterns',
+        yearWritten: '2019',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjRHPvMIe_l_C5hBf611kFoQ4rymcjZqE07A&s',
+        description:
+          "Essential Arabic grammar rules needed for understanding Quran and Hadith, including I'rab and Sarf.",
+        startDate: 'January 6, 2025',
+        endDate: 'March 30, 2025',
+        tests: 'Weekly grammar exercises, final comprehensive exam',
+        assignments: 'Daily grammar drills, sentence construction practice',
+        relatedWorks: ['Arabic Grammar for Students', 'Quranic Syntax Simplified'],
+      },
+      {
+        name: 'Surah Yusuf Memorization',
+        author: 'Ustadh Anas Al-Din',
+        teacher: 'Ustadh Omar',
+        classTime: 'Tuesday & Thursday 4:15 PM - 5:45 PM',
+        currentPage: 'Verse 50',
+        yearWritten: '2021',
+        image: 'https://img.freepik.com/premium-vector/surah-yusuf-quran-calligraphy-surah-holy-quran-surat-yusuf-islamic-vector_724044-48.jpg',
+        description: 'Focused memorization of Surah Yusuf with meaning and tajweed emphasis.',
+        startDate: 'December 16, 2024',
+        endDate: 'February 10, 2025',
+        tests: 'Memorization recitation checkups every two weeks',
+        assignments: 'Daily memorization goals and partner review sessions',
+        relatedWorks: ['Tafsir Surah Yusuf', 'Stories of the Prophets'],
+      },
+      {
+        name: 'Hadith Studies - Riyadh As-Salihin',
+        author: 'Imam Nawawi',
+        teacher: 'Sheikh Ahmed',
+        classTime: 'Saturday 11:00 AM - 1:00 PM',
+        currentPage: 'Book 4',
+        yearWritten: '1994',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQl5WEh6WvsRu0gLkstRShaII2UEBLTbRKSpQ&s',
+        description: 'Selected hadiths covering good character, worship, and community conduct.',
+        startDate: 'January 2, 2025',
+        endDate: 'March 20, 2025',
+        tests: 'Weekly hadith understanding quizzes',
+        assignments: 'Hadith explanation notes and student presentations',
+        relatedWorks: ['Hadith of the Prophet', 'Character Building in Islam'],
+      },
+      {
+        name: 'Fiqh Basics for Youth',
+        author: 'Sheikh Salih Al-Fawzan',
+        teacher: 'Ustadh Abdullah',
+        classTime: 'Wednesday 4:00 PM - 6:00 PM',
+        currentPage: 'Prayer & Purity',
+        yearWritten: '2023',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8Z0Osq928SLEaP52NXvg4-khwE_mjyimCWw&s',
+        description: 'Introductory fiqh concepts that support correct Quranic practice and daily worship.',
+        startDate: 'January 13, 2025',
+        endDate: 'April 5, 2025',
+        tests: 'Monthly fiqh assessments',
+        assignments: 'Case studies and practical application exercises',
+        relatedWorks: ['Youth Fiqh Essentials', 'Islamic Rulings for Daily Life'],
+      },
+    ],
+    instructors: [
+      { name: 'Ustadh Omar', subject: 'Quran Memorization' },
+      { name: 'Ustadh Abdullah', subject: 'Tajweed' },
+      { name: 'Sheikh Ahmed', subject: 'Islamic Studies' },
+    ],
+    location: 'Nejashi Mesjid Koye Feche, Addis Ababa, Ethiopia',
+    otherUpdates: [
+      { title: 'Summer Camp Registration Open', info: '3 days ago' },
+      { title: 'New Arabic Classes', info: '1 week ago' },
+    ],
+  },
+  'food-drive': {
+    id: 'food-drive',
+    category: 'Events',
+    type: 'event',
+    hero: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa5xbkV-IPgMXkuCAAHLNliMr4JSd4XYCLXw&s',
+    description: 'Help us distribute food parcels to local families in need this Sunday morning. Volunteers needed for sorting and delivery.',
+    details:
+      'We need volunteers to help sort donations, pack food parcels, and deliver to families. All volunteers will receive breakfast and lunch. Gloves and masks will be provided. We also provide Iftar meals during Ramadan.',
+    features: [
+      { label: 'Volunteer Roles', description: 'Sorting, packing, and delivery' },
+      { label: 'Meals Provided', description: 'Breakfast and lunch for volunteers, Iftar program available' },
+      { label: 'Safety Measures', description: 'Gloves and masks provided' },
+      { label: 'Community Impact', description: 'Help feed 200+ families monthly' },
+    ],
+    programs: [
+      { name: 'Daily Lunch Program', description: 'Hot meals served Monday-Friday for those in need', time: '12:00 PM - 2:00 PM' },
+      { name: 'Ramadan Iftar Distribution', description: 'Iftar meals for 150 families during Ramadan', time: 'Sunset daily' },
+      { name: 'Weekly Food Parcels', description: 'Non-perishable food packages for families', time: 'Every Sunday' },
+      { name: 'Emergency Food Bank', description: '24/7 access for urgent needs', time: 'Available anytime' },
+    ],
+    volunteerNeeds: [
+      'Food sorting and packaging volunteers',
+      'Delivery drivers (must have valid license)',
+      'Kitchen helpers for meal preparation',
+      'Administrative support for tracking donations',
+      'Social media coordinators to spread awareness',
+    ],
+    schedule: [
+      { label: 'Setup & Sorting', time: '8:00 AM' },
+      { label: 'Packing Parcels', time: '9:00 AM' },
+      { label: 'Delivery Teams', time: '10:00 AM' },
+      { label: 'Cleanup', time: '2:00 PM' },
+    ],
+    location: 'Nejashi Mesjid Koye Feche, Addis Ababa, Ethiopia',
+    otherUpdates: [
+      { title: 'Zakat Collection Update', info: '1 day ago' },
+      { title: 'Winter Clothing Drive', info: '4 days ago' },
+    ],
+  },
+  'facility-upgrade': {
+    id: 'facility-upgrade',
+    category: 'General',
+    type: 'general',
+    hero: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=80',
+    description:
+      'The new wudu area construction is nearly complete. We appreciate your patience during these improvements to our Masjid.',
+    details:
+      'The new wudu facilities include 12 individual stations, modern fixtures, and improved accessibility. The project is expected to be completed by next week.',
+    features: [
+      { label: '12 Individual Stations', description: 'Private wudu areas for comfort' },
+      { label: 'Modern Fixtures', description: 'Energy-efficient and water-saving' },
+      { label: 'Accessibility', description: 'Wheelchair accessible design' },
+    ],
+    facilityIssues: [
+      { facility: 'Main Prayer Hall Air Conditioning', status: 'Out of Service', issue: 'Unit needs replacement after 15 years', cost: '$12,000', estimatedCompletion: 'December 15, 2024' },
+      { facility: "Women's Wudu Area", status: 'Limited Capacity', issue: 'Only 3 working stations out of 8', cost: '$8,500', estimatedCompletion: 'January 30, 2025' },
+      { facility: 'Parking Lot Lighting', status: 'Partially Working', issue: 'Half of lights need replacement', cost: '$4,200', estimatedCompletion: 'December 20, 2024' },
+      { facility: 'Sound System', status: 'Needs Upgrade', issue: 'Outdated equipment causing feedback', cost: '$6,800', estimatedCompletion: 'February 15, 2025' },
+    ],
+    location: 'Nejashi Mesjid Koye Feche, Addis Ababa, Ethiopia',
+    otherUpdates: [
+      { title: 'Prayer Hall Renovation', info: '2 weeks ago' },
+      { label: 'Parking Lot Expansion', info: '3 weeks ago' },
+    ],
+  },
+  'upcoming-khutbah': {
+    id: 'upcoming-khutbah',
+    category: 'Friday',
+    type: 'khutbah',
+    hero: 'https://open-images.acast.com/shows/64c531806624ec0011ae53f0/1699125015368-e9907e55d1eafe175418806313ac1361.jpeg?height=750',
+    description: 'We are pleased to announce our guest speakers for the month of November. View the full list and topics online.',
+    details:
+      'This month features inspiring Khutbahs from renowned scholars. Topics include community building, family values, and contemporary Islamic issues.',
+    speakers: [
+      {
+        name: 'Sheikh Ahmed Al-Rashid',
+        topic: 'The Importance of Community Bonds in Islam',
+        date: 'Nov 3',
+        details:
+          "This Khutbah explores the concept of brotherhood in Islam (Al-Ukhuwwah Al-Islamiyyah) and how Muslims are commanded to support one another. The Sheikh will discuss Quranic verses and Hadiths that emphasize community solidarity, mutual help, and the prohibition of division among believers. This topic is crucial in today's world where social media often divides rather than unites communities.",
+      },
+      {
+        name: 'Ustadh Omar Al-Sayed',
+        topic: 'Youth and Faith: Navigating Modern Challenges',
+        date: 'Nov 10',
+        details:
+          "Focusing on the younger generation, this Khutbah addresses the unique challenges Muslim youth face in maintaining their faith amidst peer pressure, social media influences, and cultural conflicts. The speaker will draw from the examples of the Prophet's companions who were young and how they preserved their Islamic identity. This topic is essential as it provides guidance for parents and youth alike in strengthening faith in contemporary society.",
+      },
+      {
+        name: 'Sheikh Muhammad Al-Zahra',
+        topic: 'The Blessings of Regular Prayer',
+        date: 'Nov 17',
+        details:
+          "This Khutbah delves into the spiritual and worldly benefits of establishing regular prayer (Salah). The Sheikh will explain how prayer serves as a direct connection with Allah, provides discipline, prevents immorality, and brings peace to the heart. Drawing from scientific studies and Islamic teachings, he'll demonstrate why maintaining prayer is fundamental to a Muslim's success in both worlds.",
+      },
+      {
+        name: 'Imam Hassan Al-Qurashi',
+        topic: 'Patience and Gratitude in Times of Trial',
+        date: 'Nov 24',
+        details:
+          "In this Khutbah, the Imam will discuss the Islamic concepts of Sabr (patience) and Shukr (gratitude) as essential qualities for Muslims. He'll explain how trials and tribulations are tests from Allah, and how maintaining patience and expressing gratitude transforms difficulties into opportunities for spiritual growth. This topic is particularly relevant given current global challenges and personal hardships many face.",
+      },
+    ],
+    location: 'Nejashi Mesjid Koye Feche, Addis Ababa, Ethiopia',
+    otherUpdates: [
+      { title: 'New Khutbah Series Announced', info: '1 week ago' },
+      { title: 'Online Khutbah Archive', info: '2 weeks ago' },
+    ],
+  },
+};
+
+export const announcementsList = [
+  {
+    id: 'winter-quran-registration',
+    category: 'Madrasa',
+    title: 'Quran And Kitab Intensive Registration',
+    description: 'Registration is now open for our annual winter Quran program. Limited spots available.',
+    time: '2 days ago',
+    image: 'https://www.shutterstock.com/image-photo/arabic-books-260nw-36770200.jpg',
+    type: 'madrasa',
+  },
+  {
+    id: 'food-drive',
+    category: 'Events',
+    title: 'Monthly Community Food Drive',
+    description: 'Help us distribute food parcels to local families in need this Sunday morning. Volunteers needed.',
+    time: '5 hours ago',
+    image:
+      'https://media.assettype.com/gulfnews%2Fimport%2F2019%2F05%2F17%2FNAT_190514_KMCC-IFTAR_VS-16-1558090166720_16ac56931c2_large.jpg',
+    type: 'event',
+  },
+  {
+    id: 'facility-upgrade',
+    category: 'General',
+    title: 'New Wudu Area Construction Update',
+    description: 'The new wudu facilities are nearly complete. Thank you for your patience.',
+    time: '1 week ago',
+    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=80',
+    type: 'general',
+  },
+  {
+    id: 'upcoming-khutbah',
+    category: 'Friday',
+    title: 'Upcoming Friday Khutbah Schedule',
+    description: 'Guest speakers announced for the month. View full topics and details.',
+    time: 'Yesterday',
+    image:
+      'https://cdn-ilejeel.nitrocdn.com/xLnVYddYcrehmWgSnEBLHqpnAehzfCNW/assets/images/optimized/rev-78ae8aa/seekersguidance.org/wp-content/uploads/2024/02/shutterstock_1484182904-scaled.jpg',
+    type: 'khutbah',
+  },
+  {
+    id: 'special-eid-al-fitr',
+    category: 'Events',
+    title: 'Special Eid Al-Fitr Prayer 1445H',
+    description: 'Join us for Eid congregational prayer and community festival at Nejashi Mesjid Koye Feche.',
+    time: '3 days ago',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOKc62jxeNbONgEtcARnO5mt-QdIwjbT6LAw&s',
+    type: 'eid',
+  },
+];
+
+export const featuredAnnouncement = {
+  id: 'winter-quran-registration',
+  category: 'Madrasa',
+  title: 'Winter Quran Intensive Registration',
+  description:
+    'Registration is now open for our annual winter Quran program at Nejashi Mesjid Koye Feche. Limited spots available.',
+  time: '2 days ago',
+  image: 'https://aastumuslims.great-site.net/wp-content/uploads/2025/05/ChatGPT-Image-May-7-2025-06_06_04-PM-1-1024x683.png',
+  type: 'madrasa',
+};
+

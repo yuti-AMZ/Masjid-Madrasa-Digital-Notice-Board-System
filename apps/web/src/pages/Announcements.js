@@ -1,63 +1,7 @@
 import React, { useState, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-const featuredAnnouncement = {
-  id: 'winter--registration',
-  category: 'Madrasa',
-  title: 'Winter Quran Intensive Registration',
-  description: 'Registration is now open for our annual winter Quran program for youth ages 7-15 at Najashi Masjid, Koye Feche. Limited spots available.',
-  time: '2 days ago',
-  image: 'https://aastumuslims.great-site.net/wp-content/uploads/2025/05/ChatGPT-Image-May-7-2025-06_06_04-PM-1-1024x683.png',
-  type: 'madrasa'
-};
-
-const announcements = [
-  {
-    id: 'winter-quran-registration',
-    category: 'Madrasa',
-    title: 'Quran And Kitab Intensive Registration',
-    description: 'Registration is now open for our annual winter Quran program for youth ages 7-15. Limited spots available.',
-    time: '2 days ago',
-    image: 'https://www.shutterstock.com/image-photo/arabic-books-260nw-36770200.jpg',
-    type: 'madrasa'
-  },
-  {
-    id: 'food-drive',
-    category: 'Events',
-    title: 'Monthly Community Food Drive',
-    description: 'Help us distribute food parcels to local families in need this Sunday morning. Volunteers needed.',
-    time: '5 hours ago',
-    image: 'https://media.assettype.com/gulfnews%2Fimport%2F2019%2F05%2F17%2FNAT_190514_KMCC-IFTAR_VS-16-1558090166720_16ac56931c2_large.jpg',
-    type: 'event'
-  },
-  {
-    id: 'facility-upgrade',
-    category: 'General',
-    title: 'New Wudu Area Construction Update',
-    description: 'The new wudu facilities are nearly complete. Thank you for your patience.',
-    time: '1 week ago',
-    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=80',
-    type: 'general'
-  },
-  {
-    id: 'upcoming-khutbah',
-    category: 'Friday',
-    title: 'Upcoming Friday Khutbah Schedule',
-    description: 'Guest speakers announced for the month. View full topics and details.',
-    time: 'Yesterday',
-    image: 'https://cdn-ilejeel.nitrocdn.com/xLnVYddYcrehmWgSnEBLHqpnAehzfCNW/assets/images/optimized/rev-78ae8aa/seekersguidance.org/wp-content/uploads/2024/02/shutterstock_1484182904-scaled.jpg',
-    type: 'khutbah'
-  },
-  {
-    id: 'special-eid-al-fitr',
-    category: 'Events',
-    title: 'Special Eid Al-Fitr Prayer 1445H',
-    description: 'Join us for Eid congregational prayer and community festival at Najashi Masjid.',
-    time: '3 days ago',
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOKc62jxeNbONgEtcARnO5mt-QdIwjbT6LAw&s',
-    type: 'eid'
-  }
-];
+import { Link, useNavigate } from 'react-router-dom';
+import { announcementsList, featuredAnnouncement } from '../data/announcementsData';
+import { getNextUpcomingEventHijri } from '../data/hijriCalendar';
 
 const filterItems = ['All', 'Madrasa', 'Events', 'Friday', 'General'];
 
@@ -65,10 +9,11 @@ function Announcements() {
   const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
+  const nextEvent = useMemo(() => getNextUpcomingEventHijri({ fromDate: new Date() }), []);
 
   // Filter announcements based on category and search term
   const filteredAnnouncements = useMemo(() => {
-    return announcements.filter((item) => {
+    return announcementsList.filter((item) => {
       const matchesFilter = 
         activeFilter === 'All' || 
         (activeFilter === 'Friday' && item.category === 'Friday') ||
@@ -89,16 +34,77 @@ function Announcements() {
       
       {/* Header */}
       <div style={{ marginBottom: '32px' }}>
-        <p style={{ margin: 0, color: '#FB923C', fontSize: '14px', fontWeight: '700', letterSpacing: '1px' }}>
-          Najashi Masjid - Koye Feche
+        <p style={{ margin: 0, color: 'var(--color-primary)', fontSize: '14px', fontWeight: '700', letterSpacing: '1px' }}>
+          Nejashi Mesjid Koye Feche • Addis Ababa
         </p>
         <h1 style={{ margin: '12px 0 0', fontSize: '38px', color: '#0F172A' }}>
           Community Announcements
         </h1>
         <p style={{ margin: '12px 0 0', color: '#64748B', maxWidth: '680px', lineHeight: 1.8 }}>
-          Stay updated with the latest news, Quran programs, events, and Friday Khutbahs at Najashi Masjid.
+          Stay updated with the latest news, Quran programs, events, and Friday Khutbahs at Nejashi Mesjid Koye Feche.
         </p>
       </div>
+      <div style={{ marginBottom: '24px', display: 'flex', justifyContent: 'flex-end' }}>
+        <Link to="/calendar" style={{ textDecoration: 'none' }}>
+          <button
+            className="btn"
+            style={{
+              border: 'none',
+              backgroundColor: 'var(--color-primary)',
+              color: '#fff',
+              borderRadius: '12px',
+              padding: '12px 16px',
+              cursor: 'pointer',
+              fontWeight: 700,
+            }}
+          >
+            Calendar & reminders →
+          </button>
+        </Link>
+      </div>
+
+      {nextEvent && (
+        <div
+          className="card"
+          style={{
+            marginBottom: '20px',
+            padding: '16px',
+            background:
+              nextEvent.kind === 'eid'
+                ? 'rgba(255, 215, 0, 0.16)'
+                : 'rgba(20, 195, 142, 0.10)',
+            borderColor:
+              nextEvent.kind === 'eid'
+                ? 'rgba(255, 215, 0, 0.55)'
+                : 'rgba(20, 195, 142, 0.35)',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '14px', flexWrap: 'wrap' }}>
+            <div>
+              <p style={{ margin: 0, fontWeight: 900, fontSize: '16px' }}>
+                {nextEvent.kind === 'eid'
+                  ? `${nextEvent.title} Mubarak!`
+                  : nextEvent.kind === 'ayyam_al_bid'
+                    ? 'Ayyām al-Bīḍ reminder'
+                    : nextEvent.kind === 'arafah'
+                      ? 'Day of Arafah reminder'
+                      : 'Upcoming reminder'}
+              </p>
+              <p style={{ margin: '8px 0 0', color: 'var(--color-muted)', lineHeight: 1.7 }}>
+                {nextEvent.message}
+              </p>
+            </div>
+            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', alignItems: 'center' }}>
+              <span style={{ fontSize: '12px', color: 'var(--color-muted)', fontWeight: 600 }}>
+                {nextEvent.hijriLabel}
+              </span>
+              <span style={{ fontSize: '12px', color: 'var(--color-text)', fontWeight: 900, background: 'rgba(255,255,255,0.7)', border: '1px solid var(--color-border)', borderRadius: '999px', padding: '6px 10px' }}>
+                {nextEvent.daysUntil === 0 ? 'Today' : `In ${nextEvent.daysUntil} day(s)`}
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Search Bar */}
       <div style={{ marginBottom: '24px' }}>
@@ -130,12 +136,12 @@ function Announcements() {
               border: 'none',
               borderRadius: '999px',
               padding: '10px 22px',
-              backgroundColor: activeFilter === item ? '#FF7D33' : '#F1F5F9',
+              backgroundColor: activeFilter === item ? 'var(--color-primary)' : '#F1F5F9',
               color: activeFilter === item ? '#fff' : '#334155',
               cursor: 'pointer',
               fontWeight: 600,
               fontSize: '15px',
-              boxShadow: activeFilter === item ? '0 10px 25px rgba(255, 125, 51, 0.18)' : 'none',
+              boxShadow: activeFilter === item ? '0 10px 25px rgba(20, 195, 142, 0.20)' : 'none',
               transition: 'all 0.2s'
             }}
           >
@@ -148,7 +154,7 @@ function Announcements() {
       <div 
         style={{ 
           backgroundColor: '#fff', 
-          borderRadius: '28px', 
+          borderRadius: '16px', 
           overflow: 'hidden', 
           marginBottom: '34px', 
           boxShadow: '0 18px 45px rgba(15, 23, 42, 0.08)',
@@ -166,8 +172,8 @@ function Announcements() {
         <div style={{ padding: '36px 42px' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
             <span style={{ 
-              backgroundColor: '#FFF4ED', 
-              color: '#FF7D33', 
+              backgroundColor: 'rgba(20, 195, 142, 0.12)', 
+              color: 'var(--color-primary)', 
               padding: '10px 14px', 
               borderRadius: '999px', 
               fontSize: '12px', 
@@ -187,9 +193,9 @@ function Announcements() {
             <button
               style={{
                 border: 'none',
-                backgroundColor: '#FF7D33',
+                backgroundColor: 'var(--color-primary)',
                 color: '#fff',
-                borderRadius: '14px',
+                borderRadius: '12px',
                 padding: '14px 26px',
                 fontWeight: 700,
                 cursor: 'pointer'
@@ -202,7 +208,7 @@ function Announcements() {
       </div>
 
       {/* Announcements Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))', gap: '24px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '18px' }}>
         {filteredAnnouncements.map((item) => (
           <AnnouncementCard 
             key={item.id} 
@@ -239,11 +245,18 @@ function Announcements() {
 
 // Reusable Announcement Card
 function AnnouncementCard({ item, onSelect }) {
+  const accent =
+    item.type === 'khutbah'
+      ? { bg: 'rgba(20, 195, 142, 0.10)', pillBg: 'rgba(20, 195, 142, 0.16)', pillText: 'var(--color-primary)' }
+      : item.type === 'eid'
+        ? { bg: 'rgba(255, 215, 0, 0.10)', pillBg: 'rgba(255, 215, 0, 0.18)', pillText: '#7A5E00' }
+        : { bg: '#fff', pillBg: '#F1F5F9', pillText: '#334155' };
+
   return (
     <div 
       style={{ 
-        borderRadius: '24px', 
-        backgroundColor: '#fff', 
+        borderRadius: '16px', 
+        backgroundColor: accent.bg,
         overflow: 'hidden', 
         boxShadow: '0 15px 35px rgba(15, 23, 42, 0.06)', 
         cursor: 'pointer',
@@ -264,8 +277,8 @@ function AnnouncementCard({ item, onSelect }) {
       <div style={{ padding: '24px' }}>
         <span style={{ 
           display: 'inline-flex', 
-          backgroundColor: '#F1F5F9', 
-          color: '#334155', 
+          backgroundColor: accent.pillBg,
+          color: accent.pillText,
           borderRadius: '999px', 
           padding: '8px 14px', 
           fontSize: '12px', 
@@ -294,7 +307,7 @@ function AnnouncementCard({ item, onSelect }) {
 
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span style={{ color: '#94A3B8', fontSize: '13px' }}>{item.time}</span>
-          <span style={{ color: '#FF7D33', fontWeight: 700, fontSize: '14px' }}>
+          <span style={{ color: 'var(--color-primary)', fontWeight: 700, fontSize: '14px' }}>
             View Details →
           </span>
         </div>

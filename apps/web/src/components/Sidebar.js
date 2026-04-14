@@ -2,18 +2,18 @@ import React from 'react';
 
 function Sidebar() {
   return (
-    <div style={{ width: '280px', backgroundColor: '#fff', padding: '30px 20px', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ width: '280px', backgroundColor: 'var(--color-surface)', borderRight: '1px solid var(--color-border)', padding: '30px 20px', display: 'flex', flexDirection: 'column' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '50px', paddingLeft: '10px' }}>
-        <div style={{ width: '35px', height: '35px', backgroundColor: '#FF7D33', borderRadius: '10px' }}></div>
+        <div style={{ width: '35px', height: '35px', backgroundColor: 'var(--color-primary)', borderRadius: '10px' }}></div>
         <div>
-          <h3 style={{ margin: 0, fontSize: '18px', fontWeight: '800' }}>Noor Masjid</h3>
-          <p style={{ margin: 0, fontSize: '10px', color: '#FF7D33', fontWeight: '700', letterSpacing: '1px' }}>MADRASA PORTAL</p>
+          <h3 style={{ margin: 0, fontSize: '18px', fontWeight: '800', color: 'var(--color-text)' }}>Nejashi Mesjid Koye Feche</h3>
+          <p style={{ margin: 0, fontSize: '10px', color: 'var(--color-primary)', fontWeight: '700', letterSpacing: '1px' }}>MADRASA PORTAL</p>
         </div>
       </div>
 
      
 
-      <div style={{ paddingLeft: '10px', color: '#94A3B8', fontSize: '14px', fontWeight: '600' }}>⚙️ Settings</div>
+      <div style={{ paddingLeft: '10px', color: 'var(--color-muted)', fontSize: '14px', fontWeight: '600' }}>⚙️ Settings</div>
     </div>
   );
 }
