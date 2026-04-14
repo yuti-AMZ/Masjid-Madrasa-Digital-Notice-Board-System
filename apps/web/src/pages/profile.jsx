@@ -5,6 +5,8 @@ import {
   ChevronRight, Camera, UserCircle, Sliders, LifeBuoy 
 } from 'lucide-react';
 
+const _motion = motion;
+
 const Profile = () => {
   return (
     <motion.div 

@@ -1,3 +1,10 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { Search } from 'lucide-react';
+
+const _motion = motion;
+
 const NotFound = () => {
   const navigate = useNavigate();
   return (
@@ -16,3 +23,5 @@ const NotFound = () => {
     </motion.div>
   );
 };
+
+export default NotFound;

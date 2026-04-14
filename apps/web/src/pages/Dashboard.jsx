@@ -5,10 +5,12 @@ import {
   LayoutDashboard, Clock, Megaphone, User, MapPin, 
   Phone, Mail, GraduationCap, Bell, Users, Search, ChevronRight 
 } from 'lucide-react';
+import Profile from './profile';
+import NotFoundPage from './404';
 
-/**
- * SHARED INTERACTIVE COMPONENTS
- */
+const _motion = motion;
+
+
 const NavItem = ({ icon, label, to }) => {
   const location = useLocation();
   const isActive = location.pathname === to;
@@ -103,8 +105,8 @@ const DashboardHome = () => {
           </div>
           <div className="space-y-4">
             {[
-              { tag: 'EVENT', title: 'Community Dinner This Friday', color: 'text-[#00B67A] bg-[#E6F7F1]', img: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=300' },
-              { tag: 'MADRASA', title: 'New Madrasa Enrollment Open', color: 'text-[#4A90E2] bg-[#E6F0FF]', img: 'https://images.unsplash.com/photo-1585032226651-759b368d7246?w=300' }
+              { tag: 'EVENT', title: 'Community Dinner This Friday', color: 'text-[#00B67A] bg-[#E6F7F1]', img: '' },
+              { tag: 'MADRASA', title: 'New Madrasa Enrollment Open', color: 'text-[#4A90E2] bg-[#E6F0FF]', img: '' }
             ].map((item, idx) => (
               <motion.div 
                 key={idx}
@@ -140,7 +142,7 @@ const DashboardHome = () => {
       <div className="col-span-4 space-y-6">
         <div className="bg-white rounded-[2.5rem] overflow-hidden shadow-sm border border-slate-100">
           <div className="relative h-44">
-            <img src="https://images.unsplash.com/photo-1542718610-a1d656d1884c?w=500" className="w-full h-full object-cover" alt="Mosque" />
+            <img src="" className="w-full h-full object-cover" alt="Mosque" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
             <span className="absolute top-4 left-4 bg-[#00D084] text-white text-[10px] font-black px-3 py-1 rounded-full shadow-lg">OPEN FOR SALAH</span>
             <div className="absolute bottom-5 left-6">
@@ -187,15 +189,17 @@ const ContactRow = ({ icon, label, value }) => (
 );
 
 /**
- * NOT FOUND COMPONENT
+ * UNDER MAINTENANCE COMPONENT (used for placeholder pages)
  */
-const NotFound = () => {
+const UnderMaintenance = ({ title = 'Under Maintenance', message }) => {
   const navigate = useNavigate();
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col items-center justify-center py-20">
       <div className="bg-[#E6F7F1] p-12 rounded-full mb-8"><Search size={64} className="text-[#00B67A]" /></div>
-      <h1 className="text-3xl font-black mb-4">Under Maintenance</h1>
-      <p className="text-slate-400 mb-8 max-w-sm text-center font-medium">This section is currently being updated for the community. Please check back later!</p>
+      <h1 className="text-3xl font-black mb-4">{title}</h1>
+      <p className="text-slate-400 mb-8 max-w-sm text-center font-medium">
+        {message ?? "This section is currently being updated for the community. Please check back later!"}
+      </p>
       <button onClick={() => navigate('/')} className="px-10 py-4 bg-[#00B67A] text-white font-black rounded-2xl shadow-xl shadow-green-100 hover:scale-105 transition-transform">Return Home</button>
     </motion.div>
   );
@@ -241,7 +245,7 @@ export default function NoorMasjidApp() {
                 <Bell size={22} className="text-[#00B67A]" />
                 <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white"></span>
               </motion.div>
-              <div className="flex items-center gap-4 bg-white p-1.5 pr-6 rounded-full border border-slate-100 shadow-sm cursor-pointer hover:shadow-md transition-shadow">
+              <Link to="/profile" className="flex items-center gap-4 bg-white p-1.5 pr-6 rounded-full border border-slate-100 shadow-sm cursor-pointer hover:shadow-md transition-shadow">
                 <div className="w-10 h-10 bg-[#FDE7D2] rounded-full overflow-hidden flex items-center justify-center">
                   <div className="w-7 h-10 bg-[#D4A373] rounded-t-full mt-5"></div>
                 </div>
@@ -249,14 +253,26 @@ export default function NoorMasjidApp() {
                   <p className="text-sm font-black text-slate-800 leading-none">Ahmed Abdullah</p>
                   <p className="text-[10px] font-bold text-[#00B67A] mt-1">PREMIUM MEMBER</p>
                 </div>
-              </div>
+              </Link>
             </div>
           </header>
 
           {/* PAGE ROUTING */}
           <Routes>
             <Route path="/" element={<DashboardHome />} />
-            <Route path="*" element={<NotFound />} />
+            <Route
+              path="/profile"
+              element={<Profile />}
+            />
+            <Route
+              path="/prayer"
+              element={<UnderMaintenance title="Prayer Times" />}
+            />
+            <Route
+              path="/news"
+              element={<UnderMaintenance title="Announcements" />}
+            />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </main>
       </div>
