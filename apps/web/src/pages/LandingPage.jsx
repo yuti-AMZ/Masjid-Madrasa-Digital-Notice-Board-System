@@ -30,9 +30,9 @@ export function LandingPage() {
               <Link className="btn btn--primary" to="/signup">
                 Join Our Community
               </Link>
-              <a className="btn btn--secondary" href="#prayer">
+              <Link className="btn btn--secondary" to="/prayer-time">
                 View Prayer Times
-              </a>
+              </Link>
             </div>
           </div>
 
