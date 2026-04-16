@@ -10,7 +10,9 @@ import KitabDetail from './pages/KitabDetail';
 import { KhutbahPage } from './pages/KhutbahPage';
 import { LandingPage } from './pages/LandingPage';
 import { MadrasaPage } from './pages/MadrasaPage';
+import PrayerTimePage from './pages/PrayerTimePage';
 import QuranRegistrationForm from './pages/QuranRegistrationForm';
+import SettingsPage from './pages/SettingsPage';
 import { SignInPage } from './pages/SignInPage';
 import { SignUpPage } from './pages/SignUpPage';
 
@@ -33,6 +35,8 @@ function App() {
         <Route path="/login" element={<SignInPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/prayer-time" element={<PrayerTimePage />} />
+        <Route path="/settings" element={<SettingsPage />} />
 
         <Route
           path="/madrasa"

@@ -34,6 +34,9 @@ export function LandingPage() {
               <a className="btn btn--secondary" href="#announcements">
                 View Announcements
               </a>
+              <Link className="btn btn--secondary" to="/prayer-time">
+                View Prayer Times
+              </Link>
             </div>
           </div>
 
