@@ -1,0 +1,19 @@
+/* Design tokens — shared across landing, auth, and future screens */
+:root {
+  --color-bg: #f7f9fc;
+  /* Sign-up / auth screens — pale mint backdrop */
+  --color-auth-mint: #e8f5f0;
+  --color-surface: #ffffff;
+  --color-surface-soft: #f0f4f7;
+  --color-text: #111827;
+  --color-text-muted: #6b7280;
+  --color-brand: #16b985;
+  --color-brand-dark: #0f9e71;
+  --color-border: #e5e7eb;
+  --shadow-card: 0 14px 32px rgba(15, 23, 42, 0.09);
+  --shadow-button: 0 10px 20px rgba(22, 185, 133, 0.28);
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 10px;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+}

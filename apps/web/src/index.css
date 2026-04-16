@@ -1,3 +1,1030 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* ====================== Global Reset & Base Styles ====================== */
+
+@import './styles/tokens.css';
+@import './styles/auth.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ====================== Layout & Components ====================== */
+
+.container {
+  width: min(1120px, calc(100% - 3rem));
+  margin: 0 auto;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 0;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-weight: 700;
+  font-size: 0.98rem;
+}
+
+.brand-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #39d9a2 0%, var(--color-brand) 100%);
+  box-shadow: 0 0 0 4px rgba(22, 185, 133, 0.18);
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.4rem;
+  font-size: 0.86rem;
+  color: #4b5563;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  height: 44px;
+  padding: 0 1.2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn--sm {
+  height: 38px;
+  font-size: 0.83rem;
+}
+
+.btn--primary {
+  background: var(--color-brand);
+  color: #fff;
+  box-shadow: var(--shadow-button);
+}
+
+.btn--primary:hover {
+  background: var(--color-brand-dark);
+}
+
+.btn--secondary {
+  background: #fff;
+  border-color: var(--color-border);
+  color: #374151;
+}
+
+.btn--secondary:hover {
+  background: #f8fafc;
+}
+
+/* Hero Section */
+.hero {
+  min-height: 74vh;
+  display: grid;
+  gap: 2.3rem;
+  grid-template-columns: 1fr 0.9fr;
+  align-items: center;
+  padding: 3rem 0 4rem;
+}
+
+.hero-content h1 {
+  margin: 0 0 1rem;
+  font-size: clamp(2rem, 4.7vw, 4rem);
+  line-height: 1.03;
+  letter-spacing: -0.02em;
+}
+
+.hero-content h1 span {
+  color: var(--color-brand);
+}
+
+.hero-content p {
+  margin: 0;
+  max-width: 560px;
+  color: var(--color-text-muted);
+  line-height: 1.65;
+  font-size: 1.05rem;
+}
+
+.hero-actions {
+  margin-top: 2rem;
+  display: flex;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.hero-device {
+  margin-inline: auto;
+  width: min(360px, 100%);
+  height: 560px;
+  background: #f6f8fa;
+  border-radius: 36px;
+  border: 1px solid #edf0f4;
+  box-shadow: var(--shadow-card);
+  padding: 1.1rem;
+}
+
+.device-screen {
+  height: 100%;
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at top left, rgba(20, 195, 142, 0.18) 0%, transparent 34%),
+    radial-gradient(circle at bottom right, rgba(255, 215, 0, 0.18) 0%, transparent 28%),
+    linear-gradient(180deg, #fbfdff 0%, #f2f6fb 100%);
+  border: 1px solid #eef1f5;
+  position: relative;
+  overflow: hidden;
+}
+
+.device-screen::before {
+  content: '';
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  width: 92px;
+  height: 10px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: rgba(17, 29, 24, 0.14);
+}
+
+.device-screen::after {
+  content: '';
+  position: absolute;
+  inset: 4.5rem 1.2rem 1.2rem;
+  border-radius: 24px;
+  background:
+    linear-gradient(180deg, rgba(20, 195, 142, 0.14) 0%, rgba(20, 195, 142, 0.02) 100%),
+    #fff;
+  box-shadow: inset 0 0 0 1px rgba(17, 29, 24, 0.05);
+}
+
+.mission-wrap {
+  background: #eef3f7;
+  padding: 4.3rem 0;
+}
+
+.landing-announcements {
+  padding: 0 0 4rem;
+}
+
+.mission h2 {
+  margin: 0;
+  text-align: center;
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  font-weight: 700;
+}
+
+.mission-text {
+  max-width: 760px;
+  margin: 0.9rem auto 2rem;
+  text-align: center;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.mission .card {
+  padding: 1.4rem;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  border: 1px solid rgba(17, 29, 24, 0.08);
+  box-shadow: var(--shadow-card);
+}
+
+.mission .card h3 {
+  margin: 0 0 0.7rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.mission .card p {
+  margin: 0;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+.contact {
+  padding: 4rem 0 5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.contact-info h2 {
+  margin: 0 0 0.8rem;
+  font-size: clamp(1.9rem, 4vw, 2.5rem);
+  font-weight: 700;
+}
+
+.contact-info p {
+  margin: 0;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+.details {
+  list-style: none;
+  padding: 0;
+  margin: 1.4rem 0 1.4rem;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.details li {
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+.map-placeholder {
+  min-height: 190px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-lg);
+  border: 1px dashed rgba(17, 29, 24, 0.16);
+  background:
+    linear-gradient(135deg, rgba(20, 195, 142, 0.08) 0%, rgba(255, 215, 0, 0.08) 100%);
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.contact-form {
+  display: grid;
+  gap: 0.7rem;
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  border: 1px solid rgba(17, 29, 24, 0.08);
+  box-shadow: var(--shadow-card);
+}
+
+.contact-form label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(17, 29, 24, 0.12);
+  background: #fff;
+  color: var(--color-text);
+  font: inherit;
+  outline: none;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #14c38e;
+  box-shadow: 0 0 0 3px rgba(20, 195, 142, 0.14);
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+.footer {
+  padding: 1.5rem 0 2rem;
+  border-top: 1px solid rgba(17, 29, 24, 0.08);
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.footer-inner p {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 980px) {
+  .nav-links {
+    display: none;
+  }
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 2rem;
+  }
+  .hero-device {
+    height: 460px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .contact {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 580px) {
+  .container {
+    width: min(1120px, calc(100% - 1.5rem));
+  }
+  .hero-content p {
+    font-size: 0.96rem;
+  }
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .contact-form {
+    padding: 1.1rem;
+  }
+}
+
+.khutbah-page {
+  padding: 0 0 4rem;
+}
+
+.khutbah-shell {
+  padding-top: 1rem;
+}
+
+.khutbah-back {
+  margin-bottom: 1rem;
+}
+
+.khutbah-back .btn {
+  gap: 0.45rem;
+}
+
+.khutbah-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  margin-bottom: 1.25rem;
+}
+
+.khutbah-breadcrumbs a:hover {
+  color: var(--color-brand);
+}
+
+.khutbah-hero {
+  min-height: 420px;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(17, 24, 39, 0.14) 0%, rgba(17, 24, 39, 0.72) 100%),
+    radial-gradient(circle at 50% 18%, rgba(244, 231, 202, 0.42) 0, rgba(244, 231, 202, 0.08) 16%, transparent 18%),
+    linear-gradient(90deg, #5b4631 0 14%, #7d6345 14% 16%, #4f3d2b 16% 31%, #92724c 31% 33%, #3f3124 33% 48%, #806344 48% 50%, #47382b 50% 67%, #9f7d53 67% 69%, #433428 69% 84%, #876948 84% 86%, #4f3d2b 86% 100%);
+  box-shadow: var(--shadow-card);
+}
+
+.khutbah-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent 0 24%, rgba(246, 239, 226, 0.42) 24% 25%, transparent 25% 49%, rgba(246, 239, 226, 0.42) 49% 50%, transparent 50% 74%, rgba(246, 239, 226, 0.42) 74% 75%, transparent 75% 100%),
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.25) 0 2px, transparent 2px 10px);
+  mix-blend-mode: screen;
+  opacity: 0.5;
+}
+
+.khutbah-hero__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem;
+  color: #fff;
+}
+
+.khutbah-badge {
+  display: inline-flex;
+  width: fit-content;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  background: #ffd700;
+  color: #1a1a1a;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 0.9rem;
+}
+
+.khutbah-hero h1 {
+  margin: 0;
+  max-width: 520px;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+.khutbah-meta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.khutbah-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.khutbah-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 0.95fr);
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.khutbah-main,
+.khutbah-sidebar {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.khutbah-speaker,
+.khutbah-summary,
+.khutbah-player,
+.khutbah-related {
+  padding: 1.25rem;
+}
+
+.khutbah-speaker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.khutbah-speaker__identity {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.khutbah-speaker__avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  color: #14c38e;
+  background: linear-gradient(180deg, rgba(20, 195, 142, 0.12) 0%, rgba(255, 215, 0, 0.2) 100%);
+  border: 2px solid rgba(20, 195, 142, 0.24);
+}
+
+.khutbah-speaker__identity h2,
+.khutbah-summary h2,
+.khutbah-related h2,
+.khutbah-subscribe h2,
+.khutbah-player h3 {
+  margin: 0;
+}
+
+.khutbah-speaker__identity p,
+.khutbah-summary p,
+.khutbah-related p,
+.khutbah-subscribe p {
+  color: var(--color-text-muted);
+}
+
+.khutbah-speaker__actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.khutbah-speaker__actions .btn,
+.khutbah-related__button,
+.khutbah-subscribe .btn {
+  gap: 0.45rem;
+}
+
+.khutbah-summary h2 {
+  font-size: 1.35rem;
+  margin-bottom: 0.9rem;
+  padding-left: 0.9rem;
+  border-left: 4px solid #14c38e;
+}
+
+.khutbah-summary p {
+  line-height: 1.7;
+}
+
+.khutbah-takeaways {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+
+.khutbah-takeaway {
+  border-radius: 16px;
+  padding: 1rem;
+  background: linear-gradient(180deg, rgba(20, 195, 142, 0.08) 0%, rgba(255, 215, 0, 0.08) 100%);
+  border: 1px solid rgba(20, 195, 142, 0.14);
+}
+
+.khutbah-takeaway h3 {
+  margin: 0 0 0.5rem;
+  color: #14c38e;
+  font-size: 0.95rem;
+}
+
+.khutbah-takeaway p {
+  margin: 0;
+  font-size: 0.92rem;
+}
+
+.khutbah-player {
+  background: linear-gradient(180deg, #111d18 0%, #1a2821 100%);
+  color: #fff;
+}
+
+.khutbah-player__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.khutbah-player__eyebrow {
+  margin: 0 0 0.3rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.82rem;
+}
+
+.khutbah-player__download,
+.khutbah-player__controls button {
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.khutbah-player__bar {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  overflow: hidden;
+  margin: 1.25rem 0 0.55rem;
+}
+
+.khutbah-player__progress {
+  display: block;
+  width: 38%;
+  height: 100%;
+  background: linear-gradient(90deg, #14c38e 0%, #ffd700 100%);
+}
+
+.khutbah-player__times {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.khutbah-player__controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 1.4rem;
+}
+
+.khutbah-player__play {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, #14c38e 0%, #109d72 100%) !important;
+  color: #ffffff;
+  font-size: 1.05rem;
+  box-shadow: 0 12px 22px rgba(20, 195, 142, 0.32);
+}
+
+.khutbah-player__note {
+  margin: 1rem 0 0;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.6;
+  font-size: 0.9rem;
+}
+
+.khutbah-related__list {
+  display: grid;
+  gap: 0.95rem;
+  margin: 1rem 0 1.25rem;
+}
+
+.khutbah-related__item {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 0.85rem;
+  align-items: center;
+}
+
+.khutbah-related__item h3 {
+  margin: 0 0 0.2rem;
+  font-size: 0.92rem;
+}
+
+.khutbah-related__item p {
+  margin: 0;
+  font-size: 0.82rem;
+}
+
+.khutbah-related__thumb {
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.khutbah-card--sand {
+  background:
+    radial-gradient(circle at 50% 34%, rgba(255, 215, 0, 0.95) 0 20%, transparent 21%),
+    linear-gradient(180deg, #1a2821 0%, #2a3b33 100%);
+}
+
+.khutbah-card--ink {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0 1px, transparent 1px 100%),
+    linear-gradient(135deg, #111d18 0%, #1a2821 100%);
+}
+
+.khutbah-card--gold {
+  background:
+    radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.92) 0 18%, transparent 19%),
+    linear-gradient(180deg, #ffd700 0%, #d8b500 100%);
+}
+
+.khutbah-related__button {
+  width: 100%;
+}
+
+.khutbah-subscribe {
+  border-radius: 24px;
+  padding: 1.4rem;
+  color: #fff;
+  background:
+    radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.18) 0 14%, transparent 14%),
+    linear-gradient(135deg, #14c38e 0%, #109d72 55%, #111d18 100%);
+  box-shadow: 0 18px 36px rgba(20, 195, 142, 0.22);
+}
+
+.khutbah-subscribe p {
+  color: rgba(255, 255, 255, 0.84);
+  line-height: 1.6;
+}
+
+.khutbah-subscribe form {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.khutbah-subscribe input {
+  width: 100%;
+  height: 46px;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 12px;
+  padding: 0 0.9rem;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.khutbah-subscribe input::placeholder {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.khutbah-subscribe .btn {
+  width: 100%;
+  border: none;
+  background: #ffd700;
+  color: #1a1a1a;
+  box-shadow: none;
+}
+
+.madrasa-page {
+  max-width: 1180px;
+  margin: 0 auto;
+  color: #1a1a1a;
+}
+
+.madrasa-page__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.madrasa-page__back {
+  margin-bottom: 1rem;
+}
+
+.madrasa-page__back .btn,
+.madrasa-page__schedule,
+.madrasa-card__join,
+.madrasa-card__details {
+  gap: 0.45rem;
+}
+
+.madrasa-page__header h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+}
+
+.madrasa-page__header p {
+  margin: 0.85rem 0 0;
+  max-width: 720px;
+  line-height: 1.7;
+  color: rgba(26, 26, 26, 0.6);
+  font-weight: 400;
+}
+
+.madrasa-page__schedule {
+  border: none;
+  background: #14c38e;
+  color: #fff;
+  box-shadow: 0 14px 28px rgba(20, 195, 142, 0.22);
+}
+
+.madrasa-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.madrasa-filter {
+  border: 1px solid rgba(26, 26, 26, 0.1);
+  background: #fff;
+  color: #1a1a1a;
+  border-radius: 12px;
+  padding: 0.85rem 1.15rem;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.madrasa-filter--active {
+  background: #14c38e;
+  color: #fff;
+  border-color: #14c38e;
+}
+
+.madrasa-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.madrasa-card {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(240px, 0.85fr);
+  gap: 1.25rem;
+  padding: 1.3rem;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 16px 32px rgba(17, 29, 24, 0.08);
+}
+
+.madrasa-card__content h2 {
+  margin: 0;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+}
+
+.madrasa-card__description {
+  margin: 0.85rem 0 1rem;
+  color: rgba(26, 26, 26, 0.72);
+  line-height: 1.7;
+}
+
+.madrasa-card__badges {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.95rem;
+}
+
+.madrasa-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.madrasa-pill--track {
+  background: rgba(20, 195, 142, 0.12);
+  color: #14c38e;
+}
+
+.madrasa-pill--level {
+  background: rgba(255, 215, 0, 0.18);
+  color: #7a5e00;
+}
+
+.madrasa-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.madrasa-card__avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.madrasa-card__meta p {
+  margin: 0;
+  line-height: 1.5;
+  color: rgba(26, 26, 26, 0.72);
+}
+
+.madrasa-card__actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.madrasa-card__join {
+  border: none;
+  background: rgba(20, 195, 142, 0.14);
+  color: #14c38e;
+  font-weight: 700;
+}
+
+.madrasa-card__details {
+  font-weight: 500;
+}
+
+.madrasa-card__media {
+  min-height: 220px;
+}
+
+.madrasa-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.madrasa-card__footer {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-top: 0.25rem;
+}
+
+.madrasa-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: rgba(26, 26, 26, 0.68);
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+@media (prefers-color-scheme: dark) {
+  .madrasa-page {
+    color: #fff;
+  }
+
+  .madrasa-page__header p,
+  .madrasa-card__description,
+  .madrasa-card__meta p,
+  .madrasa-stat {
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .madrasa-filter,
+  .madrasa-card {
+    background: #1a2821;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+  }
+
+  .madrasa-card__join {
+    background: rgba(20, 195, 142, 0.16);
+    color: #7ce8c3;
+  }
+
+  .madrasa-card__details {
+    background: #111d18;
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+}
+
+@media (max-width: 980px) {
+  .khutbah-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .khutbah-hero {
+    min-height: 340px;
+  }
+
+  .madrasa-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .madrasa-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .khutbah-hero__overlay {
+    padding: 1.35rem;
+  }
+
+  .khutbah-speaker,
+  .khutbah-summary,
+  .khutbah-player,
+  .khutbah-related {
+    padding: 1rem;
+  }
+
+  .khutbah-takeaways {
+    grid-template-columns: 1fr;
+  }
+
+  .madrasa-card {
+    padding: 1rem;
+  }
+}
