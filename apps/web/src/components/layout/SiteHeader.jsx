@@ -10,9 +10,8 @@ export function SiteHeader() {
 
       <nav className="nav-links" aria-label="Main navigation">
         <Link to="/">Home</Link>
-        <a href="#prayer">Prayer Times</a>
-        <Link to="/khutbahs">Friday</Link>
-        <a href="#mission">Mission</a>
+        <a href="#about">About</a>
+        <a href="#mission-goals">Mission &amp; Goal</a>
         <a href="#contact">Contact</a>
       </nav>
 

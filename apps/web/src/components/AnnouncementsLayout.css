@@ -1,0 +1,92 @@
+.announcements-layout {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.announcements-layout__subnav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.announcements-layout__tab {
+  padding: 0.65rem 1.15rem;
+  border-radius: var(--radius-button, 12px);
+  font-size: 0.92rem;
+  font-weight: var(--font-weight-label, 500);
+  text-decoration: none;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  transition:
+    color 0.15s ease,
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.announcements-layout__tab:visited {
+  color: var(--color-text);
+}
+
+.announcements-layout__tab:hover {
+  color: var(--color-text);
+  background: rgba(20, 195, 142, 0.08);
+  border-color: rgba(20, 195, 142, 0.35);
+}
+
+.announcements-layout__tab:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Active: primary green + gold accent stripe (brand) */
+.announcements-layout__tab--active,
+.announcements-layout__tab--active:visited {
+  color: #065f46;
+  font-weight: var(--font-weight-heading, 700);
+  background: rgba(20, 195, 142, 0.16);
+  border: 1px solid rgba(20, 195, 142, 0.45);
+  box-shadow: 0 2px 0 var(--color-accent);
+}
+
+.announcements-layout__tab--active:hover {
+  color: #064e3b;
+  background: rgba(20, 195, 142, 0.22);
+  border-color: rgba(20, 195, 142, 0.55);
+}
+
+html.noor-theme-dark .announcements-layout__tab:not(.announcements-layout__tab--active) {
+  color: var(--color-text);
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+html.noor-theme-dark .announcements-layout__tab:not(.announcements-layout__tab--active):visited {
+  color: var(--color-text);
+}
+
+html.noor-theme-dark .announcements-layout__tab:not(.announcements-layout__tab--active):hover {
+  background: rgba(20, 195, 142, 0.12);
+  border-color: rgba(20, 195, 142, 0.35);
+}
+
+html.noor-theme-dark .announcements-layout__tab--active,
+html.noor-theme-dark .announcements-layout__tab--active:visited {
+  color: #ecfdf5;
+  background: rgba(20, 195, 142, 0.28);
+  border-color: rgba(20, 195, 142, 0.5);
+  box-shadow: 0 2px 0 var(--color-accent);
+}
+
+html.noor-theme-dark .announcements-layout__tab--active:hover {
+  color: #ffffff;
+  background: rgba(20, 195, 142, 0.36);
+}
+
+.announcements-layout__outlet {
+  min-height: 200px;
+}

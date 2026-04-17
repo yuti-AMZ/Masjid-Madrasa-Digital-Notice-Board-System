@@ -1,16 +1,20 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { Eye, EyeOff, Lock, Mail, ShieldCheck, User } from 'lucide-react'
 import { AppleGlyph, GoogleGlyph } from '../components/auth/SocialGlyphs'
 import { MasjidMark } from '../components/auth/MasjidMark'
 import { Button } from '../components/ui/Button'
 import { AuthTextField } from '../components/ui/AuthTextField'
-import { registerUser, setSession } from '../lib/authStorage'
+import { getSession, registerUser, setSession } from '../lib/authStorage'
 
 export function SignUpPage() {
   const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
+
+  if (getSession()) {
+    return <Navigate to="/dashboard" replace />
+  }
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -44,7 +48,7 @@ export function SignUpPage() {
       return
     }
     setSession({ email: email.trim().toLowerCase(), fullName })
-    navigate('/announcements', { replace: true })
+    navigate('/dashboard', { replace: true })
   }
 
   return (

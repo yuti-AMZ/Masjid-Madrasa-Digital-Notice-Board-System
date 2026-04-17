@@ -1,7 +1,7 @@
 export const announcementsById = {
   'special-eid-al-fitr': {
     id: 'special-eid-al-fitr',
-    title: 'Special Eid Prayer',
+    title: 'Special Eid Al-Fitr Prayer 1445H',
     category: 'Event',
     type: 'eid',
     hero: 'https://sheikhdrsultan.ae/Portal/Content/Generated/Thumbnails/4df5a3f5_3201x2581wTransparent.jpg',
@@ -39,7 +39,7 @@ export const announcementsById = {
     category: 'Madrasa',
     type: 'madrasa',
     hero:
-      'https://images.unsplash.com/photo-1623314556929-69d34cb19010?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8a2l0YWIlMjBhcmFifGVufDB8fDB8fHww',
+      'https://aastumuslims.great-site.net/wp-content/uploads/2025/05/ChatGPT-Image-May-7-2025-06_06_04-PM-1-1024x683.png',
     description:
       'Nejashi Mesjid Koye Feche, Addis Ababa is opening winter Quran enrollment for youth. Select from multiple kitaab tracks, each with a dedicated instructor, timeline, and assessment plan.',
     details:
@@ -241,14 +241,39 @@ export const announcementsById = {
     id: 'upcoming-khutbah',
     category: 'Friday',
     type: 'khutbah',
-    hero: 'https://open-images.acast.com/shows/64c531806624ec0011ae53f0/1699125015368-e9907e55d1eafe175418806313ac1361.jpeg?height=750',
-    description: 'We are pleased to announce our guest speakers for the month of November. View the full list and topics online.',
+    title: 'The Importance of Community in Islam',
+    hero:
+      'https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1400&q=80',
+    description:
+      'This Jumu‘ah we welcome Sheikh Ahmed Al-Rashid for a reflection on ukhuwah, mutual support, and how the masjid anchors community life in Addis Ababa.',
     details:
-      'This month features inspiring Khutbahs from renowned scholars. Topics include community building, family values, and contemporary Islamic issues.',
+      'The Khutbah will highlight Qur’ānic and prophetic guidance on brotherhood, service, and resolving conflict with adab. Please arrive early; Khutbah begins after the first adhān for Jumu‘ah.',
+    featuredMeta: {
+      dateLabel: 'Friday, Nov 3, 2025',
+      durationMins: 25,
+    },
+    speaker: {
+      name: 'Sheikh Ahmed Al-Rashid',
+      role: 'Guest speaker, Nejashi Mesjid Koye Feche',
+      photo:
+        'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80',
+    },
+    keyTakeaways: [
+      {
+        title: 'Ukhuwah in action',
+        text: 'Muslims are one body: when one limb suffers, the whole body responds with fever and sleeplessness—carrying that spirit into daily ties at the masjid and beyond.',
+      },
+      {
+        title: 'The masjid as hub',
+        text: 'Regular attendance, volunteering, and checking on neighbors turn faith into visible care—especially for new families and students far from home.',
+      },
+    ],
+    /** Optional: set when a recording is available after Jumu‘ah */
+    audioUrl: '',
     speakers: [
       {
         name: 'Sheikh Ahmed Al-Rashid',
-        topic: 'The Importance of Community Bonds in Islam',
+        topic: 'The Importance of Community in Islam',
         date: 'Nov 3',
         details:
           "This Khutbah explores the concept of brotherhood in Islam (Al-Ukhuwwah Al-Islamiyyah) and how Muslims are commanded to support one another. The Sheikh will discuss Quranic verses and Hadiths that emphasize community solidarity, mutual help, and the prohibition of division among believers. This topic is crucial in today's world where social media often divides rather than unites communities.",
@@ -290,7 +315,8 @@ export const announcementsList = [
     title: 'Quran And Kitab Intensive Registration',
     description: 'Registration is now open for our annual winter Quran program. Limited spots available.',
     time: '2 days ago',
-    image: 'https://www.shutterstock.com/image-photo/arabic-books-260nw-36770200.jpg',
+    image:
+      'https://aastumuslims.great-site.net/wp-content/uploads/2025/05/ChatGPT-Image-May-7-2025-06_06_04-PM-1-1024x683.png',
     type: 'madrasa',
   },
   {
@@ -332,15 +358,3 @@ export const announcementsList = [
     type: 'eid',
   },
 ];
-
-export const featuredAnnouncement = {
-  id: 'winter-quran-registration',
-  category: 'Madrasa',
-  title: 'Winter Quran Intensive Registration',
-  description:
-    'Registration is now open for our annual winter Quran program at Nejashi Mesjid Koye Feche. Limited spots available.',
-  time: '2 days ago',
-  image: 'https://aastumuslims.great-site.net/wp-content/uploads/2025/05/ChatGPT-Image-May-7-2025-06_06_04-PM-1-1024x683.png',
-  type: 'madrasa',
-};
-

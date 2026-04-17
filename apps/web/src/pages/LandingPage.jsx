@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import { SiteFooter } from '../components/layout/SiteFooter'
 import { SiteHeader } from '../components/layout/SiteHeader'
 import { Button } from '../components/ui/Button'
-import Announcements from './Announcements'
 
 export function LandingPage() {
   function handleContactSubmit(e) {
@@ -22,18 +21,14 @@ export function LandingPage() {
               with <span>your Masjid</span>
             </h1>
             <p>
-              Get the latest prayer times, community announcements, and local
-              events directly to your phone. Inspired by faith, driven by
-              community.
+              Get the latest prayer times, programs, and local events directly to
+              your phone. Inspired by faith, driven by community.
             </p>
 
             <div className="hero-actions">
               <Link className="btn btn--primary" to="/signup">
                 Join Our Community
               </Link>
-              <a className="btn btn--secondary" href="#announcements">
-                View Announcements
-              </a>
               <Link className="btn btn--secondary" to="/prayer-time">
                 View Prayer Times
               </Link>
@@ -45,12 +40,16 @@ export function LandingPage() {
           </div>
         </section>
 
-        <section className="mission-wrap" id="mission">
-          <section className="landing-announcements" id="announcements">
-            <Announcements />
-          </section>
+        <section className="about-section container" id="about">
+          <h2 className="about-section__title">About Noor Masjid</h2>
+          <p className="about-section__text">
+            Noor Masjid is a community masjid and learning hub in Addis Ababa. We share prayer
+            times, programs, and madrasa updates so families can stay connected—online and in person.
+          </p>
+        </section>
 
-          <div className="container mission">
+        <section className="mission-wrap" id="mission">
+          <div className="container mission" id="mission-goals">
             <h2>Our Journey &amp; Mission</h2>
             <p className="mission-text">
               Serving the community with devotion since 1986, Noor Masjid is more

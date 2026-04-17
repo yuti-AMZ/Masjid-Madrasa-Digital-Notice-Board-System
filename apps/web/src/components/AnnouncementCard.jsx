@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { announcementsList, featuredAnnouncement } from '../data/announcementsData';
+import { announcementsList } from '../data/announcementsData';
 import { getNextUpcomingEventHijri } from '../data/hijriCalendar';
 
 const filterItems = ['All', 'Madrasa', 'Events', 'Friday', 'General'];
@@ -162,69 +162,6 @@ function Announcements() {
             {item}
           </button>
         ))}
-      </div>
-
-      {/* Featured Announcement */}
-      <div 
-        style={{ 
-          backgroundColor: '#fff', 
-          borderRadius: '16px', 
-          overflow: 'hidden', 
-          marginBottom: '34px', 
-          boxShadow: '0 18px 45px rgba(15, 23, 42, 0.08)',
-          cursor: 'pointer'
-        }}
-        onClick={() =>
-          navigate(
-            featuredAnnouncement.type === 'madrasa'
-              ? '/madrasa'
-              : `/announcement/${featuredAnnouncement.id}`,
-          )
-        }
-      >
-        <div style={{ width: '100%', height: '320px', overflow: 'hidden' }}>
-          <img 
-            src={featuredAnnouncement.image} 
-            alt={featuredAnnouncement.title} 
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-          />
-        </div>
-        <div style={{ padding: '36px 42px' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
-            <span style={{ 
-              backgroundColor: 'rgba(20, 195, 142, 0.12)', 
-              color: 'var(--color-primary)', 
-              padding: '10px 14px', 
-              borderRadius: '999px', 
-              fontSize: '12px', 
-              fontWeight: '700' 
-            }}>
-              {featuredAnnouncement.category}
-            </span>
-          </div>
-          <h2 style={{ margin: 0, fontSize: '32px', lineHeight: 1.1, color: '#0F172A' }}>
-            {featuredAnnouncement.title}
-          </h2>
-          <p style={{ margin: '18px 0 0', color: '#475569', maxWidth: '760px', lineHeight: 1.8 }}>
-            {featuredAnnouncement.description}
-          </p>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '32px', flexWrap: 'wrap', gap: '18px' }}>
-            <span style={{ color: '#64748B', fontSize: '14px' }}>{featuredAnnouncement.time}</span>
-            <button
-              style={{
-                border: 'none',
-                backgroundColor: 'var(--color-primary)',
-                color: '#fff',
-                borderRadius: '12px',
-                padding: '14px 26px',
-                fontWeight: 700,
-                cursor: 'pointer'
-              }}
-            >
-              View Details
-            </button>
-          </div>
-        </div>
       </div>
 
       {/* Announcements Grid */}

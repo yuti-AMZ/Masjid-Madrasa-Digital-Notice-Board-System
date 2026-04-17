@@ -1,0 +1,569 @@
+.dash-hub {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.dash-hub__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.75rem;
+}
+
+.dash-hub__salam {
+  margin: 0 0 0.35rem;
+  font-size: clamp(1.35rem, 2.8vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+.dash-hub__date {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--color-muted);
+}
+
+.dash-hub__header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.dash-hub__icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(20, 195, 142, 0.12);
+  color: var(--color-primary);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.dash-hub__icon-btn:hover {
+  background: rgba(20, 195, 142, 0.22);
+}
+
+.dash-hub__profile-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.35rem 0.35rem 0.35rem 1rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  text-decoration: none;
+  color: inherit;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.dash-hub__profile-chip:hover {
+  border-color: rgba(20, 195, 142, 0.35);
+  box-shadow: 0 4px 16px rgba(17, 29, 24, 0.06);
+}
+
+.dash-hub__profile-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.dash-hub__profile-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.dash-hub__profile-role {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-muted);
+}
+
+.dash-hub__profile-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, var(--color-primary), #0d9f6e);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.dash-hub__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.dash-panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  padding: 1.35rem 1.4rem;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 4px 24px rgba(17, 29, 24, 0.04);
+}
+
+.dash-panel--quick {
+  margin-bottom: 0;
+}
+
+.dash-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.15rem;
+  flex-wrap: wrap;
+}
+
+.dash-panel__title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.dash-panel__title--solo {
+  margin-bottom: 1rem;
+}
+
+.dash-panel__location {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.dash-panel__pin {
+  flex-shrink: 0;
+}
+
+.dash-panel__link {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.dash-panel__link:hover {
+  text-decoration: underline;
+}
+
+.dash-panel__muted {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.dash-panel__error {
+  margin: 0;
+  color: #b91c1c;
+  font-size: 0.9rem;
+}
+
+.dash-prayer-row {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.dash-prayer-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0.85rem 0.5rem 1rem;
+  border-radius: 14px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  min-height: 118px;
+  justify-content: center;
+}
+
+.dash-prayer-card--next {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.dash-prayer-card--next .dash-prayer-card__name,
+.dash-prayer-card--next .dash-prayer-card__time,
+.dash-prayer-card--next .dash-prayer-card__ampm {
+  color: #fff;
+}
+
+.dash-prayer-card__badge {
+  position: absolute;
+  top: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0.95;
+}
+
+.dash-prayer-card__name {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-muted);
+  margin-top: 0.85rem;
+}
+
+.dash-prayer-card--next .dash-prayer-card__name {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.dash-prayer-card__time {
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin-top: 0.35rem;
+  color: var(--color-text);
+}
+
+.dash-prayer-card__ampm {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  opacity: 0.85;
+  margin-top: 0.15rem;
+  color: var(--color-muted);
+}
+
+.dash-announce-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.dash-announce-card {
+  display: flex;
+  gap: 1rem;
+  padding: 0.85rem;
+  border-radius: 14px;
+  border: 1px solid var(--color-border);
+  text-decoration: none;
+  color: inherit;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.dash-announce-card:hover {
+  border-color: rgba(20, 195, 142, 0.3);
+  box-shadow: 0 8px 22px rgba(17, 29, 24, 0.06);
+}
+
+.dash-announce-card__thumb {
+  width: 100px;
+  min-height: 88px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+  background-color: #e8ecef;
+}
+
+.dash-announce-card__body {
+  min-width: 0;
+  flex: 1;
+}
+
+.dash-announce-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.4rem;
+}
+
+.dash-hub__tag {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.dash-hub__tag--event {
+  background: rgba(20, 195, 142, 0.14);
+  color: #0f766e;
+}
+
+.dash-hub__tag--madrasa {
+  background: rgba(59, 130, 246, 0.14);
+  color: #1d4ed8;
+}
+
+.dash-hub__tag--general {
+  background: rgba(100, 116, 139, 0.12);
+  color: #475569;
+}
+
+.dash-announce-card__posted {
+  font-size: 0.75rem;
+  color: var(--color-muted);
+}
+
+.dash-announce-card__title {
+  margin: 0 0 0.35rem;
+  font-size: 0.98rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--color-text);
+}
+
+.dash-announce-card__desc {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--color-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.dash-quick-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.dash-quick-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 1.25rem 0.75rem;
+  border-radius: 14px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  text-decoration: none;
+  color: inherit;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.dash-quick-card:hover {
+  border-color: rgba(20, 195, 142, 0.35);
+  background: rgba(20, 195, 142, 0.04);
+}
+
+.dash-quick-card__icon {
+  display: flex;
+  color: var(--color-primary);
+}
+
+.dash-quick-card__label {
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.dash-masjid-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 4px 24px rgba(17, 29, 24, 0.04);
+}
+
+.dash-masjid-card__image-wrap {
+  position: relative;
+}
+
+.dash-masjid-card__image {
+  height: 160px;
+  background-size: cover;
+  background-position: center;
+}
+
+.dash-masjid-card__badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 8px;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.dash-masjid-card__content {
+  padding: 1.1rem 1.2rem 1.25rem;
+}
+
+.dash-masjid-card__title {
+  margin: 0 0 0.2rem;
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.dash-masjid-card__est {
+  margin: 0 0 1rem;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+.dash-masjid-card__details {
+  list-style: none;
+  margin: 0 0 1.1rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.dash-masjid-card__details li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--color-text);
+}
+
+.dash-masjid-card__details svg {
+  flex-shrink: 0;
+  margin-top: 0.12rem;
+  color: var(--color-primary);
+}
+
+.dash-masjid-card__cta {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0.72rem;
+  border-radius: 12px;
+  background: rgba(20, 195, 142, 0.14);
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 0.88rem;
+  text-decoration: none;
+  border: 1px solid rgba(20, 195, 142, 0.25);
+}
+
+.dash-masjid-card__cta:hover {
+  background: rgba(20, 195, 142, 0.22);
+}
+
+.dash-map-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  padding: 1.1rem 1.2rem;
+  box-shadow: 0 4px 24px rgba(17, 29, 24, 0.04);
+}
+
+.dash-map-card__title {
+  margin: 0 0 0.85rem;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.dash-map-card__map {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 140px;
+  border-radius: 14px;
+  border: 1px dashed var(--color-border);
+  background: rgba(20, 195, 142, 0.06);
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 0.88rem;
+  text-decoration: none;
+  padding: 1rem;
+}
+
+.dash-map-card__map:hover {
+  background: rgba(20, 195, 142, 0.11);
+}
+
+.dash-map-card__pin {
+  opacity: 0.85;
+}
+
+@media (max-width: 1100px) {
+  .dash-prayer-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .dash-hub__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .dash-hub__aside {
+    order: -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .dash-masjid-card {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .dash-hub__aside {
+    grid-template-columns: 1fr;
+  }
+
+  .dash-prayer-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dash-quick-row {
+    grid-template-columns: 1fr;
+  }
+
+  .dash-hub__profile-text {
+    display: none;
+  }
+
+  .dash-announce-card {
+    flex-direction: column;
+  }
+
+  .dash-announce-card__thumb {
+    width: 100%;
+    min-height: 140px;
+  }
+}

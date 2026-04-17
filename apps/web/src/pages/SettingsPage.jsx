@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Bell,
   ChevronRight,
@@ -9,9 +10,9 @@ import {
   Shield,
   SlidersHorizontal,
 } from "lucide-react";
-import Sidebar from "../components/PrayerComponents/Sidebar";
 import "../styles/PrayerTimePage.css";
 import "../styles/SettingsPage.css";
+import { clearSession } from "../lib/authStorage";
 
 const THEME_STORAGE_KEY = "noor-masjid-theme";
 
@@ -34,9 +35,13 @@ function SettingToggleRow({ title, description, checked, onChange }) {
   );
 }
 
-function SettingActionRow({ icon, title, description }) {
+function SettingActionRow({ icon, title, description, onClick }) {
   return (
-    <button type="button" className="settings-screen__panel settings-screen__panel--action">
+    <button
+      type="button"
+      className="settings-screen__panel settings-screen__panel--action"
+      onClick={onClick}
+    >
       <span className="settings-screen__action-left">
         <span className="settings-screen__action-icon" aria-hidden="true">
           {icon}
@@ -52,6 +57,7 @@ function SettingActionRow({ icon, title, description }) {
 }
 
 export default function SettingsPage() {
+  const navigate = useNavigate();
   const [pushNotifications, setPushNotifications] = useState(true);
   const [darkMode, setDarkMode] = useState(() => {
     try {
@@ -73,12 +79,14 @@ export default function SettingsPage() {
     }
   }, [darkMode]);
 
+  function handleSignOut() {
+    clearSession();
+    navigate("/", { replace: true });
+  }
+
   return (
     <div className="prayer-page settings-page">
-      <div className="app">
-        <Sidebar activeKey="settings" />
-
-        <main className="main settings-screen">
+      <main className="main settings-screen">
           <header className="settings-screen__topbar">
             <div className="settings-screen__search">
               <Search size={18} strokeWidth={2} aria-hidden="true" />
@@ -87,7 +95,12 @@ export default function SettingsPage() {
             <button type="button" className="settings-screen__icon-button" aria-label="Notifications">
               <Bell size={18} strokeWidth={2} />
             </button>
-            <button type="button" className="settings-screen__avatar" aria-label="Profile">
+            <button
+              type="button"
+              className="settings-screen__avatar"
+              aria-label="Profile"
+              onClick={() => navigate('/profile')}
+            >
               <span>NM</span>
             </button>
           </header>
@@ -138,32 +151,41 @@ export default function SettingsPage() {
                 icon={<Lock size={18} strokeWidth={2} />}
                 title="Change Password"
                 description="Update your account credentials."
+                onClick={() =>
+                  alert(
+                    'Password changes will be available when accounts are connected to the server.',
+                  )
+                }
               />
               <SettingActionRow
                 icon={<FileText size={18} strokeWidth={2} />}
                 title="Privacy Policy"
                 description="Review how we handle your data."
+                onClick={() =>
+                  alert(
+                    'Privacy policy: demo placeholder. Replace with your masjid’s real policy page.',
+                  )
+                }
               />
             </div>
           </section>
 
           <section className="settings-screen__footer-panel">
-            <button type="button" className="settings-screen__signout">
+            <button type="button" className="settings-screen__signout" onClick={handleSignOut}>
               <LogOut size={18} strokeWidth={2} />
               Sign Out
             </button>
           </section>
 
           <footer className="settings-screen__footer">
-            <p>© 2024 Noor Masjid. All rights reserved.</p>
+            <p>© 2026 Noor Masjid. All rights reserved.</p>
             <div className="settings-screen__footer-links">
               <a href="#">Terms of Service</a>
               <a href="#">Contact Support</a>
               <a href="#">About Us</a>
             </div>
           </footer>
-        </main>
-      </div>
+      </main>
     </div>
   );
 }

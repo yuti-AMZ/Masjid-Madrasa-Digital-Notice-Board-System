@@ -1,16 +1,21 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { Eye, EyeOff, Lock, Mail } from 'lucide-react'
 import { AppleGlyph, GoogleGlyph } from '../components/auth/SocialGlyphs'
 import { MasjidMark } from '../components/auth/MasjidMark'
 import { Button } from '../components/ui/Button'
 import { AuthTextField } from '../components/ui/AuthTextField'
-import { setSession, verifyCredentials } from '../lib/authStorage'
+import { getSession, setSession, verifyCredentials } from '../lib/authStorage'
 
 export function SignInPage() {
   const navigate = useNavigate()
+  const location = useLocation()
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
+
+  if (getSession()) {
+    return <Navigate to="/dashboard" replace />
+  }
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -34,7 +39,11 @@ export function SignInPage() {
       return
     }
     setSession(result.user)
-    navigate('/announcements', { replace: true })
+    const fromPath = location.state?.from?.pathname
+    const fromSearch = location.state?.from?.search ?? ''
+    const target =
+      fromPath && fromPath !== '/login' ? `${fromPath}${fromSearch}` : '/dashboard'
+    navigate(target, { replace: true })
   }
 
   return (

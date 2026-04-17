@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { MapPin } from "lucide-react";
-import Sidebar from "../components/PrayerComponents/Sidebar";
 import Header from "../components/PrayerComponents/Header";
 import Upcoming from "../components/PrayerComponents/Upcoming";
 import Schedule from "../components/PrayerComponents/Schedule";
@@ -35,12 +34,9 @@ export default function PrayerTimePage() {
   if (loading) {
     return (
       <div className="prayer-page">
-        <div className="app">
-          <Sidebar activeKey="prayer" />
-          <main className="main">
-            <div className="loading-screen">Loading prayer times for Addis Ababa...</div>
-          </main>
-        </div>
+        <main className="main">
+          <div className="loading-screen">Loading prayer times for Addis Ababa...</div>
+        </main>
       </div>
     );
   }
@@ -48,22 +44,16 @@ export default function PrayerTimePage() {
   if (error) {
     return (
       <div className="prayer-page">
-        <div className="app">
-          <Sidebar activeKey="prayer" />
-          <main className="main">
-            <div className="error-message">{error}</div>
-          </main>
-        </div>
+        <main className="main">
+          <div className="error-message">{error}</div>
+        </main>
       </div>
     );
   }
 
   return (
     <div className="prayer-page">
-      <div className="app">
-        <Sidebar activeKey="prayer" />
-
-        <main className="main">
+      <main className="main">
           <Header locationLabel={locationLabel} headerDate={headerDate} />
 
           <div className="layout">
@@ -177,8 +167,7 @@ export default function PrayerTimePage() {
               </div>
             </aside>
           </div>
-        </main>
-      </div>
+      </main>
     </div>
   );
 }

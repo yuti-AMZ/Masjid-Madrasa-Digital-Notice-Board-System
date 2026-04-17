@@ -1,39 +1,76 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&family=Inter:wght@400;500;700&display=swap');
 
+/*
+ * Nejashi / Noor Masjid — design specification
+ * Primary action: #14C38E | Alert/Accent: #FFD700
+ * Light: BG #F8F9FA | Surface #FFFFFF | Text #1A1A1A
+ * Dark: BG #111D18 | Surface #1A2821 | Text #FFFFFF
+ * Radii: cards 16px | buttons 12px
+ * Light elevation: soft shadow | Dark: border only (no shadow)
+ * Typography: Plus Jakarta Sans → Inter. Headings 700, labels 500, body/meta 400.
+ */
+
 :root {
-  /* Color palette */
-  --color-primary: #14C38E;
-  --color-accent: #FFD700;
+  --color-primary: #14c38e;
+  --color-primary-strong: #0d9488;
+  --color-accent: #ffd700;
+  --color-accent-muted: rgba(255, 215, 0, 0.22);
 
   /* Light theme */
-  --color-bg: #F8F9FA;
-  --color-surface: #FFFFFF;
-  --color-text: #1A1A1A;
-  --color-muted: rgba(26, 26, 26, 0.60);
-  --color-border: rgba(26, 26, 26, 0.10);
+  --color-bg: #f8f9fa;
+  --color-surface: #ffffff;
+  --color-text: #1a1a1a;
+  --color-muted: rgba(26, 26, 26, 0.6);
+  --color-border: rgba(26, 26, 26, 0.1);
 
-  /* Componentry */
+  --font-weight-heading: 700;
+  --font-weight-label: 500;
+  --font-weight-body: 400;
+
   --radius-card: 16px;
   --radius-button: 12px;
-  --shadow-soft: 0 14px 32px rgba(17, 29, 24, 0.10);
+  --shadow-soft: 0 14px 32px rgba(17, 29, 24, 0.1);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-bg: #111D18;
-    --color-surface: #1A2821;
-    --color-text: #FFFFFF;
-    --color-muted: rgba(255, 255, 255, 0.70);
-    --color-border: rgba(255, 255, 255, 0.10);
+    --color-bg: #111d18;
+    --color-surface: #1a2821;
+    --color-text: #ffffff;
+    --color-muted: rgba(255, 255, 255, 0.78);
+    --color-border: rgba(255, 255, 255, 0.12);
     --shadow-soft: none;
   }
 }
 
+html.noor-theme-dark {
+  --color-bg: #111d18;
+  --color-surface: #1a2821;
+  --color-text: #ffffff;
+  --color-muted: rgba(255, 255, 255, 0.78);
+  --color-border: rgba(255, 255, 255, 0.12);
+  --shadow-soft: none;
+}
+
 body {
   margin: 0;
-  font-family: "Plus Jakarta Sans", Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-family: 'Plus Jakarta Sans', Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   background-color: var(--color-bg);
   color: var(--color-text);
+  font-weight: var(--font-weight-body);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: var(--font-weight-heading);
+}
+
+.ui-label {
+  font-weight: var(--font-weight-label);
 }
 
 .App {
@@ -48,7 +85,25 @@ main {
   background-color: var(--color-bg);
 }
 
-/* Custom scrollbar to keep it clean */
+.portal-outlet {
+  flex: 1;
+  overflow-y: auto;
+  padding: 2rem 2.25rem;
+  background-color: var(--color-bg);
+  min-width: 0;
+}
+
+.portal-outlet .prayer-page {
+  min-height: auto;
+  background: transparent;
+}
+
+.portal-outlet .prayer-page .main {
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0;
+}
+
 main::-webkit-scrollbar {
   width: 6px;
 }
@@ -63,7 +118,7 @@ main::-webkit-scrollbar-thumb {
   }
 }
 
-/* Layout helpers */
+/* Bento: 3 columns desktop, single column mobile */
 .bentoGrid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -83,7 +138,6 @@ main::-webkit-scrollbar-thumb {
   }
 }
 
-/* Component primitives */
 .card {
   background: var(--color-surface);
   border-radius: var(--radius-card);
@@ -97,7 +151,11 @@ main::-webkit-scrollbar-thumb {
   }
 }
 
+html.noor-theme-dark .card {
+  box-shadow: none;
+}
+
 .btn {
   border-radius: var(--radius-button);
-  font-weight: 700;
+  font-weight: var(--font-weight-heading);
 }

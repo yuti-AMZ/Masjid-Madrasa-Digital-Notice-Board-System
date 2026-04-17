@@ -1,27 +1,34 @@
 import React, { useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { announcementsList, featuredAnnouncement } from '../data/announcementsData';
+import { announcementsList } from '../data/announcementsData';
 import { getNextUpcomingEventHijri } from '../data/hijriCalendar';
 
-const filterItems = ['All', 'Madrasa', 'Events', 'Friday', 'General'];
+/** Order matches design: All → General → Event → Madrasa → Friday */
+const filterItems = ['All', 'General', 'Event', 'Madrasa', 'Friday'];
+
+const FEATURED_ANNOUNCEMENT_ID = 'winter-quran-registration';
 
 function Announcements() {
   const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
   const nextEvent = useMemo(() => getNextUpcomingEventHijri({ fromDate: new Date() }), []);
+  const featuredItem = useMemo(
+    () => announcementsList.find((item) => item.id === FEATURED_ANNOUNCEMENT_ID),
+    [],
+  );
 
   // Filter announcements based on category and search term
   const filteredAnnouncements = useMemo(() => {
     return announcementsList.filter((item) => {
-      const matchesFilter = 
-        activeFilter === 'All' || 
+      const matchesFilter =
+        activeFilter === 'All' ||
         (activeFilter === 'Friday' && item.category === 'Friday') ||
         (activeFilter === 'Madrasa' && item.category === 'Madrasa') ||
-        (activeFilter === 'Events' && (item.category === 'Events' || item.type === 'eid')) ||
+        (activeFilter === 'Event' && (item.category === 'Events' || item.type === 'eid')) ||
         (activeFilter === 'General' && item.category === 'General');
 
-      const matchesSearch = 
+      const matchesSearch =
         item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.description.toLowerCase().includes(searchTerm.toLowerCase());
 
@@ -29,17 +36,22 @@ function Announcements() {
     });
   }, [activeFilter, searchTerm]);
 
+  const showFeaturedHero = useMemo(() => {
+    if (activeFilter !== 'All' || !featuredItem) return false;
+    const q = searchTerm.trim().toLowerCase();
+    if (!q) return true;
+    return (
+      featuredItem.title.toLowerCase().includes(q) ||
+      featuredItem.description.toLowerCase().includes(q)
+    );
+  }, [activeFilter, searchTerm, featuredItem]);
+
+  const gridAnnouncements = useMemo(() => {
+    if (!showFeaturedHero) return filteredAnnouncements;
+    return filteredAnnouncements.filter((item) => item.id !== FEATURED_ANNOUNCEMENT_ID);
+  }, [filteredAnnouncements, showFeaturedHero]);
+
   const handleFilterClick = (item) => {
-    if (item === 'Friday') {
-      navigate('/khutbahs');
-      return;
-    }
-
-    if (item === 'Madrasa') {
-      navigate('/madrasa');
-      return;
-    }
-
     setActiveFilter(item);
   };
 
@@ -140,23 +152,25 @@ function Announcements() {
         />
       </div>
 
-      {/* Category Filters */}
-      <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '32px' }}>
+      {/* Category filters — detail pages open when you open an announcement */}
+      <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '32px' }}>
         {filterItems.map((item) => (
           <button
             key={item}
+            type="button"
             onClick={() => handleFilterClick(item)}
             style={{
-              border: 'none',
+              border: activeFilter === item ? 'none' : '1px solid #e2e8f0',
               borderRadius: '999px',
               padding: '10px 22px',
-              backgroundColor: activeFilter === item ? 'var(--color-primary)' : '#F1F5F9',
-              color: activeFilter === item ? '#fff' : '#334155',
+              backgroundColor: activeFilter === item ? '#14C38E' : '#ffffff',
+              color: activeFilter === item ? '#ffffff' : '#1A1A1A',
               cursor: 'pointer',
-              fontWeight: 600,
+              fontWeight: 700,
               fontSize: '15px',
-              boxShadow: activeFilter === item ? '0 10px 25px rgba(20, 195, 142, 0.20)' : 'none',
-              transition: 'all 0.2s'
+              boxShadow:
+                activeFilter === item ? '0 10px 25px rgba(20, 195, 142, 0.35)' : 'none',
+              transition: 'all 0.2s',
             }}
           >
             {item}
@@ -164,72 +178,83 @@ function Announcements() {
         ))}
       </div>
 
-      {/* Featured Announcement */}
-      <div 
-        style={{ 
-          backgroundColor: '#fff', 
-          borderRadius: '16px', 
-          overflow: 'hidden', 
-          marginBottom: '34px', 
-          boxShadow: '0 18px 45px rgba(15, 23, 42, 0.08)',
-          cursor: 'pointer'
-        }}
-        onClick={() =>
-          navigate(
-            featuredAnnouncement.type === 'madrasa'
-              ? '/madrasa'
-              : `/announcement/${featuredAnnouncement.id}`,
-          )
-        }
-      >
-        <div style={{ width: '100%', height: '320px', overflow: 'hidden' }}>
-          <img 
-            src={featuredAnnouncement.image} 
-            alt={featuredAnnouncement.title} 
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-          />
-        </div>
-        <div style={{ padding: '36px 42px' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
-            <span style={{ 
-              backgroundColor: 'rgba(20, 195, 142, 0.12)', 
-              color: 'var(--color-primary)', 
-              padding: '10px 14px', 
-              borderRadius: '999px', 
-              fontSize: '12px', 
-              fontWeight: '700' 
-            }}>
-              {featuredAnnouncement.category}
-            </span>
+      {showFeaturedHero && featuredItem && (
+        <div
+          style={{
+            backgroundColor: '#fff',
+            borderRadius: '16px',
+            overflow: 'hidden',
+            marginBottom: '34px',
+            boxShadow: '0 18px 45px rgba(15, 23, 42, 0.08)',
+            cursor: 'pointer',
+          }}
+          onClick={() =>
+            navigate(
+              featuredItem.type === 'madrasa' ? '/madrasa' : `/announcement/${featuredItem.id}`,
+            )
+          }
+        >
+          <div style={{ width: '100%', height: '320px', overflow: 'hidden' }}>
+            <img
+              src={featuredItem.image}
+              alt={featuredItem.title}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
           </div>
-          <h2 style={{ margin: 0, fontSize: '32px', lineHeight: 1.1, color: '#0F172A' }}>
-            {featuredAnnouncement.title}
-          </h2>
-          <p style={{ margin: '18px 0 0', color: '#475569', maxWidth: '760px', lineHeight: 1.8 }}>
-            {featuredAnnouncement.description}
-          </p>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '32px', flexWrap: 'wrap', gap: '18px' }}>
-            <span style={{ color: '#64748B', fontSize: '14px' }}>{featuredAnnouncement.time}</span>
-            <button
+          <div style={{ padding: '36px 42px' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
+              <span
+                style={{
+                  backgroundColor: 'rgba(20, 195, 142, 0.12)',
+                  color: 'var(--color-primary)',
+                  padding: '10px 14px',
+                  borderRadius: '999px',
+                  fontSize: '12px',
+                  fontWeight: '700',
+                }}
+              >
+                {featuredItem.category}
+              </span>
+            </div>
+            <h2 style={{ margin: 0, fontSize: '32px', lineHeight: 1.1, color: '#0F172A' }}>
+              {featuredItem.title}
+            </h2>
+            <p style={{ margin: '18px 0 0', color: '#475569', maxWidth: '760px', lineHeight: 1.8 }}>
+              {featuredItem.description}
+            </p>
+            <div
               style={{
-                border: 'none',
-                backgroundColor: 'var(--color-primary)',
-                color: '#fff',
-                borderRadius: '12px',
-                padding: '14px 26px',
-                fontWeight: 700,
-                cursor: 'pointer'
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginTop: '32px',
+                flexWrap: 'wrap',
+                gap: '18px',
               }}
             >
-              View Details
-            </button>
+              <span style={{ color: '#64748B', fontSize: '14px' }}>{featuredItem.time}</span>
+              <button
+                type="button"
+                style={{
+                  border: 'none',
+                  backgroundColor: 'var(--color-primary)',
+                  color: '#fff',
+                  borderRadius: '12px',
+                  padding: '14px 26px',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                }}
+              >
+                View Details
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Announcements Grid */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '18px' }}>
-        {filteredAnnouncements.map((item) => (
+        {gridAnnouncements.map((item) => (
           <AnnouncementCard 
             key={item.id} 
             item={item} 
@@ -240,7 +265,7 @@ function Announcements() {
         ))}
       </div>
 
-      {filteredAnnouncements.length === 0 && (
+      {gridAnnouncements.length === 0 && (
         <div style={{ textAlign: 'center', padding: '60px 20px', color: '#64748B' }}>
           <p>No announcements found matching your search.</p>
         </div>

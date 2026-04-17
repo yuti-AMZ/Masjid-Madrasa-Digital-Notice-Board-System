@@ -1,0 +1,636 @@
+/* Event / Eid announcement detail — brand green + gold accents */
+
+.ann-detail {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  color: #0f172a;
+}
+
+.ann-detail__breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.ann-detail__breadcrumb a {
+  color: #64748b;
+  text-decoration: none;
+}
+
+.ann-detail__breadcrumb a:hover {
+  color: var(--color-primary);
+}
+
+.ann-detail__breadcrumb-sep {
+  color: #cbd5e1;
+  user-select: none;
+}
+
+.ann-detail__breadcrumb-current {
+  color: #0f172a;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ann-detail__hero {
+  position: relative;
+  border-radius: var(--radius-card, 16px);
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+  min-height: 320px;
+  background: #0f172a;
+}
+
+.ann-detail__hero-img {
+  width: 100%;
+  height: min(420px, 55vw);
+  object-fit: cover;
+  display: block;
+}
+
+.ann-detail__hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.15) 0%,
+    rgba(15, 23, 42, 0.55) 45%,
+    rgba(15, 23, 42, 0.85) 100%
+  );
+  pointer-events: none;
+}
+
+.ann-detail__hero-badge {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius-button, 12px);
+  text-transform: uppercase;
+}
+
+.ann-detail__hero-title {
+  position: absolute;
+  bottom: 3.5rem;
+  left: 1.25rem;
+  right: 1.25rem;
+  margin: 0;
+  font-size: clamp(1.65rem, 4vw, 2.35rem);
+  font-weight: 900;
+  line-height: 1.15;
+  color: #fff;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
+}
+
+.ann-detail__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.ann-detail__btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  border-radius: 12px;
+  padding: 0.75rem 1.35rem;
+  font-weight: 800;
+  font-size: 0.92rem;
+  font-family: inherit;
+  cursor: pointer;
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(20, 195, 142, 0.35);
+}
+
+.ann-detail__btn-primary:hover {
+  filter: brightness(1.05);
+}
+
+.ann-detail__btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 12px;
+  padding: 0.75rem 1.35rem;
+  font-weight: 800;
+  font-size: 0.92rem;
+  font-family: inherit;
+  cursor: pointer;
+  background: #fff;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+
+.ann-detail__btn-secondary:hover {
+  background: rgba(20, 195, 142, 0.08);
+}
+
+.ann-detail__section-title {
+  margin: 0 0 1rem;
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #0f172a;
+}
+
+.ann-detail__prose {
+  margin: 0 0 1.75rem;
+  color: #475569;
+  line-height: 1.8;
+  font-size: 1rem;
+}
+
+.ann-detail__feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+@media (max-width: 640px) {
+  .ann-detail__feature-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ann-detail__feature-card {
+  background: linear-gradient(135deg, rgba(20, 195, 142, 0.1) 0%, rgba(255, 215, 0, 0.1) 100%);
+  border: 1px solid rgba(20, 195, 142, 0.28);
+  border-radius: var(--radius-card, 16px);
+  padding: 1.25rem 1.35rem;
+}
+
+.ann-detail__feature-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #047857;
+}
+
+.ann-detail__feature-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: #065f46;
+}
+
+.ann-detail__schedule-card {
+  border-radius: 18px;
+  padding: 1.35rem 1.25rem;
+  background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-primary-strong) 100%);
+  color: #fff;
+  box-shadow: 0 16px 40px rgba(20, 195, 142, 0.28);
+}
+
+.ann-detail__schedule-card h3 {
+  margin: 0 0 1rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.ann-detail__schedule-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 12px;
+  margin-bottom: 0.5rem;
+  background: rgba(255, 255, 255, 0.12);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.ann-detail__schedule-row--highlight {
+  background: rgba(127, 29, 29, 0.45);
+  font-weight: 800;
+}
+
+.ann-detail__schedule-footnote {
+  margin: 1rem 0 0;
+  font-size: 0.82rem;
+  font-style: italic;
+  opacity: 0.92;
+  line-height: 1.5;
+}
+
+html.noor-theme-dark .ann-detail__section-title,
+html.noor-theme-dark .ann-detail__breadcrumb-current {
+  color: #f8fafc;
+}
+
+html.noor-theme-dark .ann-detail__prose,
+html.noor-theme-dark .ann-detail__breadcrumb,
+html.noor-theme-dark .ann-detail__breadcrumb a {
+  color: #94a3b8;
+}
+
+html.noor-theme-dark .ann-detail__breadcrumb a:hover {
+  color: var(--color-accent);
+}
+
+/* Friday Khutbah detail — featured hero, speaker strip, audio, sidebar */
+
+.khutbah-detail .ann-detail__hero-badge {
+  top: 1.25rem;
+  bottom: auto;
+}
+
+.khutbah-detail__hero-meta {
+  position: absolute;
+  bottom: 5.25rem;
+  left: 1.25rem;
+  right: 1.25rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
+}
+
+.khutbah-detail__hero-meta-dot {
+  opacity: 0.75;
+}
+
+.khutbah-detail__speaker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  padding: 1.35rem 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 18px;
+  background: var(--color-surface, #fff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  box-shadow: var(--shadow-soft, 0 12px 32px rgba(15, 23, 42, 0.06));
+}
+
+.khutbah-detail__speaker-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.khutbah-detail__speaker-photo {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(20, 195, 142, 0.35);
+}
+
+.khutbah-detail__speaker-name {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.khutbah-detail__speaker-role {
+  margin: 0.2rem 0 0;
+  font-size: 0.88rem;
+  color: #64748b;
+}
+
+.khutbah-detail__speaker-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.khutbah-detail__btn-listen {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: none;
+  border-radius: 12px;
+  padding: 0.65rem 1.15rem;
+  font-weight: 800;
+  font-size: 0.9rem;
+  font-family: inherit;
+  cursor: pointer;
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(20, 195, 142, 0.3);
+}
+
+.khutbah-detail__btn-listen:hover {
+  filter: brightness(1.05);
+}
+
+.khutbah-detail__btn-follow {
+  border-radius: 12px;
+  padding: 0.65rem 1.1rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  font-family: inherit;
+  cursor: pointer;
+  background: #fff;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+
+.khutbah-detail__btn-follow:hover {
+  background: #fff7ed;
+}
+
+.khutbah-detail__btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid var(--color-border, #e2e8f0);
+  background: var(--color-surface, #fff);
+  color: #334155;
+  cursor: pointer;
+}
+
+.khutbah-detail__btn-icon:hover {
+  background: #f8fafc;
+}
+
+.khutbah-detail__takeaways {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+@media (max-width: 720px) {
+  .khutbah-detail__takeaways {
+    grid-template-columns: 1fr;
+  }
+}
+
+.khutbah-detail__takeaway-card {
+  background: linear-gradient(135deg, rgba(20, 195, 142, 0.1) 0%, rgba(255, 215, 0, 0.1) 100%);
+  border: 1px solid rgba(20, 195, 142, 0.28);
+  border-radius: var(--radius-card, 16px);
+  padding: 1.15rem 1.25rem;
+}
+
+.khutbah-detail__takeaway-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #047857;
+}
+
+.khutbah-detail__takeaway-card p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: #065f46;
+}
+
+.khutbah-detail__audio {
+  border-radius: 18px;
+  padding: 1.25rem 1.35rem;
+  margin-bottom: 1.25rem;
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+  color: #e2e8f0;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.35);
+}
+
+.khutbah-detail__audio-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.khutbah-detail__audio-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.khutbah-detail__audio-dl {
+  display: inline-flex;
+  color: var(--color-accent);
+  opacity: 0.95;
+}
+
+.khutbah-detail__audio-dl:hover {
+  color: #fff;
+}
+
+.khutbah-detail__audio-bar {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.35);
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.khutbah-detail__audio-bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--color-primary);
+  pointer-events: none;
+}
+
+.khutbah-detail__audio-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+}
+
+.khutbah-detail__ctrl {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: #e2e8f0;
+  cursor: pointer;
+  padding: 0.35rem;
+  border-radius: 10px;
+}
+
+.khutbah-detail__ctrl:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.khutbah-detail__ctrl--play {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(20, 195, 142, 0.45);
+}
+
+.khutbah-detail__ctrl--play:hover {
+  filter: brightness(1.06);
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.khutbah-detail__audio-placeholder {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: #94a3b8;
+}
+
+.khutbah-detail__related {
+  border-radius: 18px;
+  padding: 1.35rem 1.25rem;
+  background: var(--color-surface, #fff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  box-shadow: var(--shadow-soft, 0 12px 32px rgba(15, 23, 42, 0.06));
+}
+
+.khutbah-detail__related h3 {
+  margin: 0 0 1rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.khutbah-detail__related-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.khutbah-detail__related-item {
+  display: flex;
+  gap: 0.85rem;
+  align-items: center;
+}
+
+.khutbah-detail__related-item img {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.khutbah-detail__related-title {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.35;
+}
+
+.khutbah-detail__related-date {
+  margin: 0.2rem 0 0;
+  font-size: 0.78rem;
+  color: #64748b;
+}
+
+.khutbah-detail__archive-link {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.khutbah-detail__archive-link:hover {
+  text-decoration: underline;
+}
+
+.khutbah-detail__subscribe {
+  border-radius: 18px;
+  padding: 1.5rem 1.35rem;
+  background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-primary-strong) 100%);
+  color: #fff;
+  box-shadow: 0 16px 40px rgba(20, 195, 142, 0.28);
+}
+
+.khutbah-detail__subscribe h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.khutbah-detail__subscribe p {
+  margin: 0 0 1rem;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.khutbah-detail__subscribe-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.khutbah-detail__subscribe-form input {
+  border: none;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  font-size: 0.92rem;
+  font-family: inherit;
+}
+
+.khutbah-detail__subscribe-form button {
+  border: none;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  font-weight: 800;
+  font-size: 0.92rem;
+  font-family: inherit;
+  cursor: pointer;
+  background: #fff;
+  color: var(--color-primary-strong);
+}
+
+.khutbah-detail__subscribe-form button:hover {
+  background: #fff7ed;
+}
+
+html.noor-theme-dark .khutbah-detail__speaker-name,
+html.noor-theme-dark .khutbah-detail__related h3,
+html.noor-theme-dark .khutbah-detail__related-title {
+  color: #f8fafc;
+}
+
+html.noor-theme-dark .khutbah-detail__speaker-role,
+html.noor-theme-dark .khutbah-detail__related-date {
+  color: #94a3b8;
+}
+
+html.noor-theme-dark .khutbah-detail__speaker,
+html.noor-theme-dark .khutbah-detail__related {
+  background: rgba(15, 23, 42, 0.55);
+  border-color: rgba(148, 163, 184, 0.25);
+}

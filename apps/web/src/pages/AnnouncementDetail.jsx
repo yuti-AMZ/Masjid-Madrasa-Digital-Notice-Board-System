@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Calendar, Share2, Play, Pause, SkipBack, SkipForward, Download } from 'lucide-react';
 import { announcementsById } from '../data/announcementsData';
 import { downloadICS } from '../utils/ics';
- 
+import './AnnouncementDetail.css';
 
 function AnnouncementDetail() {
   
@@ -10,10 +11,25 @@ function AnnouncementDetail() {
   const navigate = useNavigate();
   const announcement = announcementsById[announcementId] || announcementsById['special-eid-al-fitr'];
   const [selectedKitabIndex, setSelectedKitabIndex] = useState(0);
+  const audioRef = useRef(null);
+  const audioSectionRef = useRef(null);
+  const [audioPlaying, setAudioPlaying] = useState(false);
+  const [audioProgress, setAudioProgress] = useState(0);
+  const [subscribeEmail, setSubscribeEmail] = useState('');
 
   useEffect(() => {
     setSelectedKitabIndex(0);
   }, [announcementId]);
+
+  useEffect(() => {
+    setAudioPlaying(false);
+    setAudioProgress(0);
+    const a = audioRef.current;
+    if (a) {
+      a.pause();
+      a.currentTime = 0;
+    }
+  }, [announcementId, announcement?.audioUrl]);
 
   const selectedKitab = announcement.kitaabs?.[selectedKitabIndex] || null;
 
@@ -47,6 +63,59 @@ function AnnouncementDetail() {
       end,
       filename: `${announcement.id}.ics`,
     });
+  };
+
+  const handleAudioTimeUpdate = () => {
+    const a = audioRef.current;
+    if (!a?.duration) return;
+    setAudioProgress((a.currentTime / a.duration) * 100);
+  };
+
+  const toggleAudio = () => {
+    if (!announcement.audioUrl) return;
+    const a = audioRef.current;
+    if (!a) return;
+    if (audioPlaying) {
+      a.pause();
+      setAudioPlaying(false);
+    } else {
+      void a.play().then(() => setAudioPlaying(true)).catch(() => setAudioPlaying(false));
+    }
+  };
+
+  const skipAudio = (deltaSec) => {
+    const a = audioRef.current;
+    if (!a?.duration) return;
+    a.currentTime = Math.max(0, Math.min(a.duration, a.currentTime + deltaSec));
+  };
+
+  const seekAudio = (ratio) => {
+    const a = audioRef.current;
+    if (!a?.duration) return;
+    a.currentTime = ratio * a.duration;
+    setAudioProgress(ratio * 100);
+  };
+
+  const scrollToAudio = () => {
+    audioSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (announcement.audioUrl && audioRef.current) {
+      void audioRef.current.play().then(() => setAudioPlaying(true)).catch(() => {});
+    }
+  };
+
+  const handleShare = () => {
+    const url = window.location.href;
+    if (navigator.share) {
+      navigator
+        .share({
+          title: announcement.title,
+          text: announcement.description,
+          url,
+        })
+        .catch(() => {});
+    } else {
+      navigator.clipboard?.writeText?.(url);
+    }
   };
 
   const renderSidebarContent = () => {
@@ -143,10 +212,495 @@ function AnnouncementDetail() {
           </div>
         );
 
+      case 'eid':
+        if (!announcement.schedule?.length) return null;
+        return (
+          <div className="ann-detail__schedule-card">
+            <h3>Eid schedule</h3>
+            {announcement.schedule.map((row) => {
+              const highlight = /eid prayer/i.test(row.label);
+              return (
+                <div
+                  key={row.label}
+                  className={
+                    'ann-detail__schedule-row' +
+                    (highlight ? ' ann-detail__schedule-row--highlight' : '')
+                  }
+                >
+                  <span>{row.label}</span>
+                  <span>{row.time}</span>
+                </div>
+              );
+            })}
+            <p className="ann-detail__schedule-footnote">
+              Please arrive early for parking. Carpooling is highly recommended.
+            </p>
+          </div>
+        );
+
       default:
         return null;
     }
   };
+
+  const relatedKhutbahThumbs = [
+    'https://images.unsplash.com/photo-1519817914152-22d216bb9170?auto=format&fit=crop&w=200&q=80',
+    'https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&w=200&q=80',
+    'https://images.unsplash.com/photo-1458014854819-043adac3d570?auto=format&fit=crop&w=200&q=80',
+  ];
+
+  if (announcement.type === 'khutbah') {
+    const meta = announcement.featuredMeta || { dateLabel: '', durationMins: 25 };
+    const speaker = announcement.speaker || {
+      name: announcement.speakers?.[0]?.name || 'Speaker',
+      role: 'Nejashi Mesjid Koye Feche',
+      photo:
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+    };
+    const takeaways = announcement.keyTakeaways?.length
+      ? announcement.keyTakeaways
+      : [
+          { title: 'Reflection', text: announcement.description },
+          { title: 'Details', text: (announcement.details || '').slice(0, 280) },
+        ];
+    const related = (announcement.speakers || []).slice(1, 4);
+
+    return (
+      <div className="ann-detail khutbah-detail" style={{ color: 'var(--color-text)' }}>
+        <nav className="ann-detail__breadcrumb" aria-label="Breadcrumb">
+          <Link to="/">Home</Link>
+          <span className="ann-detail__breadcrumb-sep" aria-hidden>
+            ›
+          </span>
+          <Link to="/announcements">Announcements</Link>
+          <span className="ann-detail__breadcrumb-sep" aria-hidden>
+            ›
+          </span>
+          <span className="ann-detail__breadcrumb-current">{announcement.title}</span>
+        </nav>
+
+        <div className="ann-detail__hero">
+          <img className="ann-detail__hero-img" src={announcement.hero} alt="" />
+          <div className="ann-detail__hero-overlay" aria-hidden />
+          <span className="ann-detail__hero-badge">Featured Khutbah</span>
+          <p className="khutbah-detail__hero-meta">
+            <span>{meta.dateLabel}</span>
+            <span className="khutbah-detail__hero-meta-dot" aria-hidden>
+              ·
+            </span>
+            <span>{meta.durationMins} mins</span>
+          </p>
+          <h1 className="ann-detail__hero-title">{announcement.title}</h1>
+        </div>
+
+        <div className="khutbah-detail__speaker">
+          <div className="khutbah-detail__speaker-info">
+            <img src={speaker.photo} alt="" className="khutbah-detail__speaker-photo" />
+            <div>
+              <p className="khutbah-detail__speaker-name">{speaker.name}</p>
+              <p className="khutbah-detail__speaker-role">{speaker.role}</p>
+            </div>
+          </div>
+          <div className="khutbah-detail__speaker-actions">
+            <button type="button" className="khutbah-detail__btn-listen" onClick={scrollToAudio}>
+              <Play size={18} strokeWidth={2.5} aria-hidden />
+              Listen now
+            </button>
+            <button
+              type="button"
+              className="khutbah-detail__btn-follow"
+              onClick={() => alert('Follow reminders can be enabled when accounts are connected.')}
+            >
+              Follow
+            </button>
+            <button type="button" className="khutbah-detail__btn-icon" onClick={handleShare} aria-label="Share">
+              <Share2 size={18} strokeWidth={2} />
+            </button>
+          </div>
+        </div>
+
+        <div className="bentoGrid" style={{ marginBottom: '32px' }}>
+          <div className="bentoSpan2">
+            <h2 className="ann-detail__section-title">Summary</h2>
+            <p className="ann-detail__prose">{announcement.description}</p>
+            <p className="ann-detail__prose" style={{ marginTop: '-0.5rem' }}>
+              {announcement.details}
+            </p>
+
+            <h2 className="ann-detail__section-title" style={{ marginTop: '0.5rem' }}>
+              Key takeaways
+            </h2>
+            <div className="khutbah-detail__takeaways">
+              {takeaways.map((item) => (
+                <div key={item.title} className="khutbah-detail__takeaway-card">
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </div>
+              ))}
+            </div>
+
+            <div ref={audioSectionRef} className="khutbah-detail__audio">
+              <div className="khutbah-detail__audio-head">
+                <span className="khutbah-detail__audio-label">Full audio recording</span>
+                {announcement.audioUrl ? (
+                  <a
+                    href={announcement.audioUrl}
+                    download
+                    className="khutbah-detail__audio-dl"
+                    aria-label="Download audio"
+                  >
+                    <Download size={18} />
+                  </a>
+                ) : null}
+              </div>
+              {announcement.audioUrl ? (
+                <>
+                  <audio
+                    ref={audioRef}
+                    src={announcement.audioUrl}
+                    onTimeUpdate={handleAudioTimeUpdate}
+                    onEnded={() => setAudioPlaying(false)}
+                    onPlay={() => setAudioPlaying(true)}
+                    onPause={() => setAudioPlaying(false)}
+                    preload="metadata"
+                  />
+                  <div
+                    className="khutbah-detail__audio-bar"
+                    onClick={(e) => {
+                      const r = e.currentTarget.getBoundingClientRect();
+                      seekAudio(Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)));
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggleAudio();
+                      }
+                    }}
+                    role="slider"
+                    tabIndex={0}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                    aria-valuenow={Math.round(audioProgress)}
+                    aria-label="Playback position"
+                  >
+                    <span className="khutbah-detail__audio-bar-fill" style={{ width: `${audioProgress}%` }} />
+                  </div>
+                  <div className="khutbah-detail__audio-controls">
+                    <button
+                      type="button"
+                      className="khutbah-detail__ctrl"
+                      aria-label="Back 10 seconds"
+                      onClick={() => skipAudio(-10)}
+                    >
+                      <SkipBack size={22} />
+                    </button>
+                    <button
+                      type="button"
+                      className="khutbah-detail__ctrl khutbah-detail__ctrl--play"
+                      onClick={toggleAudio}
+                      aria-label={audioPlaying ? 'Pause' : 'Play'}
+                    >
+                      {audioPlaying ? <Pause size={28} /> : <Play size={28} />}
+                    </button>
+                    <button
+                      type="button"
+                      className="khutbah-detail__ctrl"
+                      aria-label="Forward 10 seconds"
+                      onClick={() => skipAudio(10)}
+                    >
+                      <SkipForward size={22} />
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <p className="khutbah-detail__audio-placeholder">
+                  The recording will be posted here after Jumu‘ah, in shā’ Allāh.
+                </p>
+              )}
+            </div>
+
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginTop: '8px' }}>
+              <button type="button" className="ann-detail__btn-primary" onClick={handlePrimaryAction}>
+                Set reminder
+              </button>
+              <button type="button" className="ann-detail__btn-secondary" onClick={handleShare}>
+                Share
+              </button>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+            <div className="khutbah-detail__related">
+              <h3>Related Khutbahs</h3>
+              {related.length === 0 ? (
+                <p className="khutbah-detail__audio-placeholder" style={{ color: '#64748b' }}>
+                  More topics will appear here as the monthly schedule is updated.
+                </p>
+              ) : (
+                <ul className="khutbah-detail__related-list">
+                  {related.map((k, i) => (
+                    <li key={`${k.name}-${k.date}`} className="khutbah-detail__related-item">
+                      <img src={relatedKhutbahThumbs[i % relatedKhutbahThumbs.length]} alt="" />
+                      <div>
+                        <p className="khutbah-detail__related-title">{k.topic}</p>
+                        <p className="khutbah-detail__related-date">{k.date}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <Link to="/announcements" className="khutbah-detail__archive-link">
+                View archive →
+              </Link>
+            </div>
+
+            <div className="khutbah-detail__subscribe">
+              <h3>Join our community</h3>
+              <p>Stay updated with the latest khutbahs, events, and masjid announcements.</p>
+              <form
+                className="khutbah-detail__subscribe-form"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (subscribeEmail.trim()) {
+                    alert('Thanks — we will use this for announcements when email delivery is enabled.');
+                    setSubscribeEmail('');
+                  }
+                }}
+              >
+                <input
+                  type="email"
+                  placeholder="Email address"
+                  value={subscribeEmail}
+                  onChange={(e) => setSubscribeEmail(e.target.value)}
+                  aria-label="Email for updates"
+                />
+                <button type="submit">Subscribe</button>
+              </form>
+            </div>
+
+            <div
+              style={{
+                borderRadius: '16px',
+                padding: '26px',
+                backgroundColor: 'var(--color-surface)',
+                border: '1px solid var(--color-border)',
+                boxShadow: 'var(--shadow-soft)',
+              }}
+            >
+              <h3 style={{ margin: 0, fontSize: '18px', color: '#0F172A' }}>Location</h3>
+              <div
+                style={{
+                  marginTop: '18px',
+                  height: '160px',
+                  borderRadius: '20px',
+                  overflow: 'hidden',
+                  backgroundColor: '#E2E8F0',
+                  backgroundImage:
+                    'url(https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=900&q=80)',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              />
+              <p style={{ margin: '18px 0 0', color: '#475569', lineHeight: 1.7 }}>{announcement.location}</p>
+            </div>
+          </div>
+        </div>
+
+        <Link to="/announcements" style={{ textDecoration: 'none', display: 'inline-block' }}>
+          <button
+            type="button"
+            style={{
+              backgroundColor: '#fff',
+              color: '#334155',
+              border: '1px solid #E2E8F0',
+              borderRadius: '14px',
+              padding: '14px 22px',
+              cursor: 'pointer',
+              fontWeight: 700,
+            }}
+          >
+            ← Back to Announcements
+          </button>
+        </Link>
+      </div>
+    );
+  }
+
+  if (announcement.type === 'eid') {
+    return (
+      <div className="ann-detail" style={{ color: 'var(--color-text)' }}>
+        <nav className="ann-detail__breadcrumb" aria-label="Breadcrumb">
+          <Link to="/">Home</Link>
+          <span className="ann-detail__breadcrumb-sep" aria-hidden>
+            ›
+          </span>
+          <Link to="/announcements">Announcements</Link>
+          <span className="ann-detail__breadcrumb-sep" aria-hidden>
+            ›
+          </span>
+          <span className="ann-detail__breadcrumb-current">{announcement.title}</span>
+        </nav>
+
+        <div className="ann-detail__hero">
+          <img
+            className="ann-detail__hero-img"
+            src={announcement.hero}
+            alt=""
+          />
+          <div className="ann-detail__hero-overlay" aria-hidden />
+          <span className="ann-detail__hero-badge">Event</span>
+          <h1 className="ann-detail__hero-title">{announcement.title}</h1>
+        </div>
+
+        <div className="ann-detail__actions">
+          <button type="button" className="ann-detail__btn-primary" onClick={handlePrimaryAction}>
+            <Calendar size={20} strokeWidth={2} aria-hidden />
+            Add to Calendar
+          </button>
+          <button type="button" className="ann-detail__btn-secondary" onClick={handleShare}>
+            <Share2 size={20} strokeWidth={2} aria-hidden />
+            Share
+          </button>
+        </div>
+
+        <div className="bentoGrid" style={{ marginBottom: '32px' }}>
+          <div className="bentoSpan2">
+            <h2 className="ann-detail__section-title">About the celebration</h2>
+            <p className="ann-detail__prose">
+              {announcement.description} We will be celebrating the completion of the blessed month
+              of Ramadan together with the wider community.
+            </p>
+
+            {announcement.features && (
+              <div className="ann-detail__feature-grid">
+                {announcement.features.map((feature) => (
+                  <div key={feature.label} className="ann-detail__feature-card">
+                    <h3>{feature.label}</h3>
+                    <p>{feature.description}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {announcement.eidInfo && (
+              <div
+                style={{
+                  marginBottom: '28px',
+                  borderRadius: '22px',
+                  padding: '18px',
+                  background:
+                    'linear-gradient(90deg, rgba(234,88,12,0.12) 0%, rgba(20,195,142,0.1) 100%)',
+                  border: '1px solid rgba(20, 195, 142, 0.28)',
+                }}
+              >
+                <p style={{ margin: 0, color: '#0F172A', fontWeight: 900, fontSize: '16px' }}>
+                  {announcement.eidInfo.greeting}
+                </p>
+                <p style={{ margin: '8px 0 0', color: '#475569', lineHeight: 1.7, fontSize: '14px' }}>
+                  Meet at {announcement.eidInfo.meetWhere}. Salah: {announcement.eidInfo.salahStarts}.
+                </p>
+              </div>
+            )}
+
+            <p className="ann-detail__prose" style={{ marginBottom: 0 }}>
+              {announcement.details}
+            </p>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+            {renderSidebarContent()}
+
+            <div
+              style={{
+                borderRadius: '16px',
+                padding: '26px',
+                backgroundColor: 'var(--color-surface)',
+                border: '1px solid var(--color-border)',
+                boxShadow: 'var(--shadow-soft)',
+              }}
+            >
+              <h3 style={{ margin: 0, fontSize: '18px', color: '#0F172A' }}>Location</h3>
+              <div
+                style={{
+                  marginTop: '18px',
+                  height: '200px',
+                  borderRadius: '20px',
+                  overflow: 'hidden',
+                  backgroundColor: '#E2E8F0',
+                  backgroundImage:
+                    'url(https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=900&q=80)',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              />
+              <p style={{ margin: '18px 0 0', color: '#475569', lineHeight: 1.7 }}>
+                {announcement.location}
+              </p>
+            </div>
+
+            <div
+              style={{
+                borderRadius: '16px',
+                padding: '26px',
+                backgroundColor: 'var(--color-surface)',
+                border: '1px solid var(--color-border)',
+                boxShadow: 'var(--shadow-soft)',
+              }}
+            >
+              <h3 style={{ margin: 0, fontSize: '18px', color: '#0F172A' }}>Other updates</h3>
+              <div style={{ marginTop: '20px', display: 'grid', gap: '14px' }}>
+                {announcement.otherUpdates.map((update) => (
+                  <div
+                    key={update.title || update.label}
+                    style={{
+                      display: 'flex',
+                      gap: '14px',
+                      alignItems: 'center',
+                      backgroundColor: '#F8FAFC',
+                      padding: '14px 16px',
+                      borderRadius: '18px',
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: '10px',
+                        height: '10px',
+                        borderRadius: '50%',
+                        backgroundColor: 'var(--color-primary)',
+                      }}
+                    />
+                    <div>
+                      <p style={{ margin: '0 0 6px', fontWeight: 700, color: '#0F172A' }}>
+                        {update.title || update.label}
+                      </p>
+                      <p style={{ margin: 0, color: '#64748B', fontSize: '13px' }}>{update.info}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <Link to="/announcements" style={{ textDecoration: 'none', display: 'inline-block' }}>
+          <button
+            type="button"
+            style={{
+              backgroundColor: '#fff',
+              color: '#334155',
+              border: '1px solid #E2E8F0',
+              borderRadius: '14px',
+              padding: '14px 22px',
+              cursor: 'pointer',
+              fontWeight: 700,
+            }}
+          >
+            ← Back to Announcements
+          </button>
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div style={{ width: '100%', maxWidth: '1180px', margin: '0 auto', color: 'var(--color-text)' }}>

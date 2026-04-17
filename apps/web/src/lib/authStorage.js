@@ -70,3 +70,23 @@ export function getSession() {
 export function clearSession() {
   localStorage.removeItem(SESSION_KEY)
 }
+
+/** Update fields on the signed-in session (demo). */
+export function updateSession(partial) {
+  const current = getSession()
+  if (!current) return false
+  const next = { ...current, ...partial }
+  setSession(next)
+  return true
+}
+
+/** Keep registered user record in sync when display name changes. */
+export function updateRegisteredUserFullName(email, fullName) {
+  const users = readUsers()
+  const normalized = email.trim().toLowerCase()
+  const idx = users.findIndex((u) => u.email === normalized)
+  if (idx === -1) return false
+  users[idx] = { ...users[idx], fullName: fullName.trim() }
+  writeUsers(users)
+  return true
+}
